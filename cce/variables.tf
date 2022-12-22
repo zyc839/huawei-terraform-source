@@ -1,3 +1,5 @@
+# -------  vpc module -------
+
 variable "vpc_name" {
   description = "Vpc name"
   default = "vela-vpc"
@@ -63,3 +65,71 @@ variable "eni_subnet_gateway_ip" {
   default = "192.168.2.1"
   type = string
 }
+
+
+# -------  eip module -------
+
+variable "eip_name" {
+  description = "EIP name"
+  default = "vela-eip"
+  type = string
+}
+
+variable "eip_type" {
+  description = "EIP type"
+  default = "5_bgp"
+  type = string
+}
+
+variable "bandwidth_name" {
+  description = "Bandwidth name"
+  default = "vela-bw"
+  type = string
+}
+
+
+
+# -------  cce  -------
+
+variable "cluster_name" {
+  description = "Cluster name"
+  default = "vela-cce"
+  type = string
+}
+
+variable "flavor_id" {
+  description = "Flavor id"
+  default = "cce.s2.small"
+  type = string
+}
+
+variable "network_type" {
+  description = "Network type"
+  default = "eni"
+  type = string
+}
+
+variable "cluster_version" {
+  description = "Cluster version"
+  default = "v1.23"
+  type = string
+}
+
+variable "container_network_cidr" {
+  description = "Container network cidr"
+  default = "192.168.0.0/24"
+  type = string
+}
+
+variable "service_network_cidr" {
+  description = "Service network cidr"
+  default = "10.247.0.0/16"
+  type = string
+}
+
+variable "node_count" {
+  description = "Node count"
+  default = 1
+  type = number
+}
+
