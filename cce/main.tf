@@ -46,7 +46,7 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
 resource "huaweicloud_cce_node" "node" {
   count = var.node_count
   cluster_id        = huaweicloud_cce_cluster.cce_turbo.id
-  name              = "node" + count.index
+  name              = count.index
   flavor_id         = "s3.large.2"
   availability_zone = var.availability_zone
   
