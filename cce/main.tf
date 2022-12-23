@@ -49,6 +49,7 @@ resource "huaweicloud_cce_node" "node" {
   name              = count.index
   flavor_id         = "s3.large.2"
   availability_zone = var.availability_zone
+  password         = "123456"
   
   root_volume {
     size       = 40
