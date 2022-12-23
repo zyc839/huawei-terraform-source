@@ -8,7 +8,7 @@ terraform {
 }
 
 module "vpc" {
-  source = ".//vpc"
+  source = "git::github.com/owenJiao/terraform_source.git//vpc"
   vpc_name = var.vpc_name
   vpc_cidr = var.vpc_cidr
   subnet_name = var.subnet_name
@@ -23,7 +23,7 @@ module "vpc" {
 }
 
 module "eip" {
-   source = ".//eip"
+   source = "git::github.com/owenJiao/terraform_source.git//eip"
    eip_name = var.eip_name
    eip_type = var.eip_type
    bandwidth_name = var.bandwidth_name
