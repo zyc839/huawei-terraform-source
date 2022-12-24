@@ -44,12 +44,11 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
 }
 
 resource "huaweicloud_cce_node" "node" {
-  count = var.node_count
   cluster_id        = huaweicloud_cce_cluster.cce_turbo.id
-  name              = count.index
+  name              = "vela-k8s-node"
   flavor_id         = "s3.large.2"
   availability_zone = var.availability_zone
-  password         = "123456"
+  password         = "123@jjxppp"
   
   root_volume {
     size       = 40
