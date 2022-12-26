@@ -57,11 +57,11 @@ resource "huaweicloud_cce_node" "node" {
   
   root_volume {
     size       = 40
-    volumetype = "SATA"
+    volumetype = "SSD"
   }
   data_volumes {
     size       = 100
-    volumetype = "SATA"
+    volumetype = "SSD"
   }
 }
 
