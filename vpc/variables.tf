@@ -63,3 +63,8 @@ variable "eni_subnet_gateway_ip" {
   default = "192.168.2.1"
   type = string
 }
+
+variable "project_name" {
+  description = "Project name"
+  type = string
+}

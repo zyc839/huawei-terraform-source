@@ -1,24 +1,10 @@
-output "vpc_id" {
-  value = huaweicloud_vpc.vpc.id
-  description = "vpc id"
+output "instance_id" {
+    value = huaweicloud_compute_instance.instance.id
+    description = "Instance Id"
 }
 
-output "subnet_id" {
-    value = huaweicloud_vpc_subnet.subnet.id
-    description = "subnet id"
+output "instance_ip" {
+    value = huaweicloud_compute_instance.instance.access_ip_v4
+    description = "Instance IP"
 }
 
-output "subnet_subnet_id" {
-    value = huaweicloud_vpc_subnet.subnet.subnet_id
-    description = "subnet_subnet id"
-}
-
-output "eni_subnet_id" {
-    value = huaweicloud_vpc_subnet.eni_subnet.ipv4_subnet_id
-    description = "subnet id"
-}
-
-output "eni_subnet_cidr" {
-    value = huaweicloud_vpc_subnet.eni_subnet.cidr
-    description = "subnet id"
-}

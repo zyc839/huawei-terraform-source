@@ -133,3 +133,8 @@ variable "service_network_cidr" {
 #   type = number
 # }
 
+variable "project_name" {
+  description = "Project name"
+  type = string
+}
+

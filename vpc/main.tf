@@ -11,6 +11,9 @@ terraform {
 resource "huaweicloud_vpc" "vpc" {
   name = var.vpc_name
   cidr = var.vpc_cidr
+  tags = {
+    project = var.project_name
+  }
 }
 
 resource "huaweicloud_vpc_subnet" "subnet" {
@@ -21,6 +24,9 @@ resource "huaweicloud_vpc_subnet" "subnet" {
   availability_zone = var.availability_zone
   primary_dns   = var.primary_dns
   secondary_dns = var.secondary_dns
+  tags = {
+    project = var.project_name
+  }
 }
 
 resource "huaweicloud_vpc_subnet" "eni_subnet" {
@@ -28,4 +34,7 @@ resource "huaweicloud_vpc_subnet" "eni_subnet" {
   cidr          = var.eni_subnet_cidr
   gateway_ip    = var.eni_subnet_gateway_ip
   vpc_id        = huaweicloud_vpc.vpc.id
+  tags = {
+    project = var.project_name
+  }
 }

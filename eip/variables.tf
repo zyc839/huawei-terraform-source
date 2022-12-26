@@ -15,3 +15,9 @@ variable "bandwidth_name" {
   default = "vela-bw"
   type = string
 }
+
+
+variable "project_name" {
+  description = "Project name"
+  type = string
+}

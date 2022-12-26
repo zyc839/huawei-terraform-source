@@ -20,6 +20,7 @@ module "vpc" {
   eni_subnet_name = var.eni_subnet_name
   eni_subnet_cidr = var.eni_subnet_cidr
   eni_subnet_gateway_ip = var.eni_subnet_gateway_ip
+  project_name = var.project_name
 }
 
 module "eip" {
@@ -27,6 +28,7 @@ module "eip" {
    eip_name = var.eip_name
    eip_type = var.eip_type
    bandwidth_name = var.bandwidth_name
+   project_name = var.project_name
 }
 
 resource "huaweicloud_cce_cluster" "cce_turbo" {
@@ -41,6 +43,9 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
   cluster_version        = var.cluster_version
   container_network_cidr = var.container_network_cidr
   service_network_cidr   = var.service_network_cidr
+  tags = {
+    project = var.project_name
+  }
 }
 
 resource "huaweicloud_cce_node" "node" {

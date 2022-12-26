@@ -7,25 +7,69 @@ terraform {
   }
 }
 
-
-resource "huaweicloud_vpc" "vpc" {
-  name = var.vpc_name
-  cidr = var.vpc_cidr
+data "huaweicloud_cce_clusters" "clusters" {
+  tags {
+    project = var.project_name
+  }
+  status = "Available"
 }
 
-resource "huaweicloud_vpc_subnet" "subnet" {
-  name       = var.subnet_name
-  cidr       = var.subnet_cidr
-  gateway_ip = var.subnet_gateway_ip
-  vpc_id     = huaweicloud_vpc.vpc.id
+data "huaweicloud_vpc_subnets" "subnet" {
+  tags {
+    project = var.project_name
+  }
+}
+
+data "huaweicloud_compute_flavors" "flavor_1C1G" {
   availability_zone = var.availability_zone
-  primary_dns   = var.primary_dns
-  secondary_dns = var.secondary_dns
+  performance_type  = "normal"
+  cpu_core_count    = 1
+  memory_size       = 1
 }
 
-resource "huaweicloud_vpc_subnet" "eni_subnet" {
-  name          = var.eni_subnet_name
-  cidr          = var.eni_subnet_cidr
-  gateway_ip    = var.eni_subnet_gateway_ip
-  vpc_id        = huaweicloud_vpc.vpc.id
+
+data "huaweicloud_images_image" "image" {
+  architecture = "x86"
+  os_version   = "CentOS 7.6 64bit"
+  visibility   = "public"
+  most_recent  = true
 }
+
+
+module "eip" {
+   source = "git::github.com/owenJiao/terraform_source.git//eip"
+   eip_name = var.eip_name
+   eip_type = var.eip_type
+   bandwidth_name = var.bandwidth_name
+   project_name = var.project_name
+}
+
+resource "huaweicloud_compute_instance" "instance" {
+  name               = var.instance_name
+  image_id           = data.huaweicloud_images_image.image.id
+  flavor_id          = data.huaweicloud_compute_flavors.flavor_1C1G.ids[0]
+  # security_group_ids = [var.secgroup_id]
+  availability_zone  = var.availability_zone
+
+  network {
+    uuid = data.huaweicloud_vpc_subnets.subnet.subnets[0].id
+  }
+
+  tags = {
+    project = var.project_name
+  }
+
+}
+
+resource "huaweicloud_compute_eip_associate" "associated" {
+  public_ip   = module.eip.address
+  instance_id = huaweicloud_compute_instance.instance.id
+}
+
+resource "huaweicloud_cce_node_attach" "attach_tok8s" {
+  cluster_id = data.huaweicloud_cce_clusters.clusters.clusters[0].id
+  server_id  = huaweicloud_compute_instance.instance.id
+  password   = "123@jjxppp"
+  os         = "CentOS 7.6"
+}
+

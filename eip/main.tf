@@ -19,6 +19,9 @@ resource "huaweicloud_vpc_eip" "eip" {
     size        = 10
     charge_mode = "traffic"
   }
+  tags = {
+    project = var.project_name
+  }
 }
 
 
