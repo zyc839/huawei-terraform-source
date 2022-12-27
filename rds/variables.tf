@@ -73,6 +73,11 @@ variable "backup_strategy_keep_days" {
   type = number
 }
 
+variable "project_name" {
+  description = "Project name"
+  type = string
+}
+
 
 
 
