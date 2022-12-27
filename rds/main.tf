@@ -13,16 +13,18 @@ resource "huaweicloud_networking_secgroup" "secgroup" {
 
 data "huaweicloud_vpc_subnets" "subnet" {
   status = "ACTIVE"
-  tags {
-    project = var.project_name
-  }
+  name = "vela-subnet-bb"
+  # tags {
+  #   project = var.project_name
+  # }
 }
 
 data "huaweicloud_vpcs" "vpc" {
   status = "ACTIVE"
-  tags {
-    project = var.project_name
-  }
+  name = "vela-vpc-bb"
+  # tags {
+  #   project = var.project_name
+  # }
 }
 
 data "huaweicloud_rds_flavors" "flavor" {
