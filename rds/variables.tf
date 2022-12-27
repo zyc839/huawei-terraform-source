@@ -68,6 +68,16 @@ variable "project_name" {
   type = string
 }
 
+variable "vpc_id" {
+  description = "vpc id"
+  type = string
+}
+
+variable "subnet_id" {
+  description = "Subnet id"
+  type = string
+}
+
 
 
 

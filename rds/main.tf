@@ -12,12 +12,14 @@ resource "huaweicloud_networking_secgroup" "secgroup" {
 }
 
 data "huaweicloud_vpc_subnets" "subnet" {
+  status = "ACTIVE"
   tags {
     project = var.project_name
   }
 }
 
 data "huaweicloud_vpcs" "vpc" {
+  status = "ACTIVE"
   tags {
     project = var.project_name
   }
@@ -33,8 +35,8 @@ resource "huaweicloud_rds_instance" "instance" {
   name                = var.rds_instance_name
   flavor              = data.huaweicloud_rds_flavors.flavor.flavors[0].id
   ha_replication_mode = var.ha_replication_mode
-  vpc_id              = data.huaweicloud_vpcs.vpc.vpcs[*].id
-  subnet_id           = data.huaweicloud_vpc_subnets.subnet.subnets[0].id
+  vpc_id              = var.vpc_id != "" ? var.vpc_id : data.huaweicloud_vpcs.vpc.vpcs[*].id
+  subnet_id           = var.subnet_id != "" ? var.subnet_id : data.huaweicloud_vpc_subnets.subnet.subnets[0].id
   security_group_id   = huaweicloud_networking_secgroup.secgroup.id
   availability_zone   = [
     var.availability_zone
