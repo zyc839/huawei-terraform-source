@@ -70,11 +70,13 @@ variable "project_name" {
 
 variable "vpc_id" {
   description = "vpc id"
+  default = "default"
   type = string
 }
 
 variable "subnet_id" {
   description = "Subnet id"
+  default = "default"
   type = string
 }
 
