@@ -44,11 +44,15 @@ module "eip" {
    project_name = var.project_name
 }
 
+resource "huaweicloud_networking_secgroup" "secgroup" {
+  name        = var.secgroup_name
+}
+
 resource "huaweicloud_compute_instance" "instance" {
   name               = var.instance_name
   image_id           = data.huaweicloud_images_image.image.id
   flavor_id          = data.huaweicloud_compute_flavors.flavor_1C1G.ids[0]
-  # security_group_ids = [var.secgroup_id]
+  security_group_ids = [huaweicloud_networking_secgroup.secgroup.id]
   availability_zone  = var.availability_zone
 
   network {

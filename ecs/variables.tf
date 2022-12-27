@@ -34,6 +34,13 @@ variable "bandwidth_name" {
   type = string
 }
 
+# -------------------------------
+variable "secgroup_name" {
+  description = "Secgroup name"
+  default = "vela-sg"
+  type = string
+}
+
 
 
 
