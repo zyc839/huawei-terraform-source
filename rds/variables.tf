@@ -16,16 +16,6 @@ variable "ha_replication_mode" {
   type = string
 }
 
-variable "vpc_id" {
-  description = "VPC id"
-  type = string
-}
-
-variable "subnet_id" {
-  description = "Subnet id"
-  type = string
-}
-
 variable "availability_zone" {
   description = "Availability zone"
   type = string
