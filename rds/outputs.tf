@@ -8,8 +8,7 @@ output "public_ips" {
   description = "instance public_ips"
 }
 
-
-output "public_ips" {
+output "flavor" {
   value = data.huaweicloud_rds_flavors.flavor
   description = "instance public_ips"
 }
