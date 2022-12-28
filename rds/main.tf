@@ -35,7 +35,7 @@ data "huaweicloud_rds_flavors" "flavor" {
 
 resource "huaweicloud_rds_instance" "instance" {
   name                = "terraform_test_rds_instance"
-  flavor              = "rds.pg.x1.xlarge.2.ha"
+  flavor              = "rds.pg.x1.xlarge.8.ha"
   ha_replication_mode = "async"
   vpc_id              = "67ef1c7d-cc9d-4f50-8f30-58d9150ea5ee"
   subnet_id           = "eb4247f1-6257-4de0-a264-36dd82d3f989"
