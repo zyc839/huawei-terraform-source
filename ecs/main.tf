@@ -8,16 +8,18 @@ terraform {
 }
 
 data "huaweicloud_cce_clusters" "clusters" {
-  tags {
-    project = var.project_name
-  }
-  status = "Available"
+  name = "vela-cce-bb"
+  # tags {
+  #   project = var.project_name
+  # }
+  # status = "Available"
 }
 
 data "huaweicloud_vpc_subnets" "subnet" {
-  tags {
-    project = var.project_name
-  }
+  name = "vela-subnet-bb"
+  # tags {
+  #   project = var.project_name
+  # }
 }
 
 data "huaweicloud_compute_flavors" "flavor_1C1G" {
