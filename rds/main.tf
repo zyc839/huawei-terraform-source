@@ -51,7 +51,7 @@ resource "huaweicloud_rds_instance" "instance" {
   }
 
   volume {
-    type = "ESSD"
+    type = "LOCALSSD"
     size = 100
   }
   backup_strategy {
