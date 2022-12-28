@@ -25,8 +25,8 @@ data "huaweicloud_vpc_subnets" "subnet" {
 data "huaweicloud_compute_flavors" "flavor_1C1G" {
   availability_zone = var.availability_zone
   performance_type  = "normal"
-  cpu_core_count    = 1
-  memory_size       = 1
+  cpu_core_count    = 2
+  memory_size       = 4
 }
 
 
