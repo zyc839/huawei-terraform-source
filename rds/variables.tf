@@ -35,7 +35,7 @@ variable "db_version" {
 
 variable "db_password" {
   description = "DB Password"
-  default = "admin"
+  default = "123@admin"
   type = string
 }
 
