@@ -39,7 +39,8 @@ resource "huaweicloud_rds_instance" "instance" {
   subnet_id           = var.subnet_id != "default" ? var.subnet_id : data.huaweicloud_vpc_subnets.subnet.subnets[0].id
   security_group_id   = huaweicloud_networking_secgroup.secgroup.id
   availability_zone   = [
-    var.availability_zone
+    var.primary_availability_zone,
+    var.standby_availability_zone
   ]
 
   db {

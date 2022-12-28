@@ -16,8 +16,15 @@ variable "ha_replication_mode" {
   type = string
 }
 
-variable "availability_zone" {
-  description = "Availability zone"
+variable "primary_availability_zone" {
+  description = "Primary availability zone"
+  default = "cn-east-3b"
+  type = string
+}
+
+variable "standby_availability_zone" {
+  description = "Standby availability zone"
+  default = "cn-east-3a"
   type = string
 }
 
