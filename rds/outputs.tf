@@ -9,6 +9,6 @@ output "public_ips" {
 }
 
 output "flavor" {
-  value = data.huaweicloud_rds_flavors.flavor
+  value = data.huaweicloud_rds_flavors.flavor.flavors[0]
   description = "instance public_ips"
 }

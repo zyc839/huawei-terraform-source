@@ -46,11 +46,12 @@ resource "huaweicloud_rds_instance" "instance" {
 
   db {
     type     = "PostgreSQL"
-    version  = "12"
+    version  = "13"
     password = "Huangwei!120521"
   }
+
   volume {
-    type = "ULTRAHIGH"
+    type = "ESSD"
     size = 100
   }
   backup_strategy {
