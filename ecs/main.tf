@@ -77,5 +77,13 @@ resource "huaweicloud_cce_node_attach" "attach_tok8s" {
   server_id  = huaweicloud_compute_instance.instance.id
   password   = "123@jjxppp"
   os         = "CentOS 7.6"
+  root_volume {
+    size       = 40
+    volumetype = "SSD"
+  }
+  data_volumes {
+    size       = 100
+    volumetype = "SSD"
+  }
 }
 
