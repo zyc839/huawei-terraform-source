@@ -50,6 +50,13 @@ resource "huaweicloud_networking_secgroup" "secgroup" {
   name        = var.secgroup_name
 }
 
+resource "huaweicloud_evs_volume" "volume" {
+  name              = var.volume_name
+  availability_zone = var.availability_zone
+  volume_type       = var.volume_type
+  size              = var.volume_size
+}
+
 resource "huaweicloud_compute_instance" "instance" {
   name               = var.instance_name
   image_id           = data.huaweicloud_images_image.image.id
@@ -72,18 +79,17 @@ resource "huaweicloud_compute_eip_associate" "associated" {
   instance_id = huaweicloud_compute_instance.instance.id
 }
 
+resource "huaweicloud_compute_volume_attach" "attached" {
+  instance_id = huaweicloud_compute_instance.instance.id
+  volume_id   = huaweicloud_evs_volume.volume.id
+}
+
 resource "huaweicloud_cce_node_attach" "attach_tok8s" {
   cluster_id = data.huaweicloud_cce_clusters.clusters.clusters[0].id
   server_id  = huaweicloud_compute_instance.instance.id
   password   = "123@jjxppp"
   os         = "CentOS 7.6"
-  root_volume {
-    size       = 40
-    volumetype = "SSD"
-  }
-  data_volumes {
-    size       = 100
-    volumetype = "SSD"
-  }
 }
+
+
 

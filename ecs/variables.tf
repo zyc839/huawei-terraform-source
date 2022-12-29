@@ -41,8 +41,25 @@ variable "secgroup_name" {
   type = string
 }
 
+# --------------volume-----------
 
+variable "volume_name" {
+  description = "Volume name"
+  default = "vela-volume"
+  type = string
+}
 
+variable "volume_type" {
+  description = "Volume type"
+  default = "SSD"
+  type = string
+}
+
+variable "volume_size" {
+  description = "Volume size"
+  default = 10
+  type = number
+}
 
 
 
