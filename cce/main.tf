@@ -7,6 +7,10 @@ terraform {
   }
 }
 
+locals {
+  instance_name     = "vela-k8s-node"
+}
+
 module "vpc" {
   source = "git::github.com/owenJiao/terraform_source.git//vpc"
   vpc_name = var.vpc_name
@@ -49,8 +53,9 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
 }
 
 resource "huaweicloud_cce_node" "node" {
+  count = var.node_count
   cluster_id        = huaweicloud_cce_cluster.cce_turbo.id
-  name              = "vela-k8s-node"
+  name              = "${local.instance_name}-${count.index}"
   flavor_id         = "s3.large.2"
   availability_zone = var.availability_zone
   password         = "123@jjxppp"

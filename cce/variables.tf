@@ -127,11 +127,11 @@ variable "service_network_cidr" {
   type = string
 }
 
-# variable "node_count" {
-#   description = "Node count"
-#   default = 1
-#   type = number
-# }
+variable "node_count" {
+  description = "Node count"
+  default = 1
+  type = number
+}
 
 variable "project_name" {
   description = "Project name"
