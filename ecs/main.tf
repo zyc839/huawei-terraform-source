@@ -8,7 +8,7 @@ terraform {
 }
 
 data "huaweicloud_cce_clusters" "clusters" {
-  name = "vela-cce-bb"
+  name = "vela-cce-hh"
   # tags {
   #   project = var.project_name
   # }
@@ -16,7 +16,7 @@ data "huaweicloud_cce_clusters" "clusters" {
 }
 
 data "huaweicloud_vpc_subnets" "subnet" {
-  name = "vela-subnet-bb"
+  name = "vela-subnet-hh"
   # tags {
   #   project = var.project_name
   # }
