@@ -4,16 +4,27 @@ terraform {
       source  = "registry.terraform.io/huaweicloud/huaweicloud"
       version = ">=1.36.0"
     }
+    random = {
+      source = "hashicorp/random"
+      version = "3.4.3"
+    }
   }
 }
 
+
+
 locals {
-  instance_name     = "vela-k8s-node"
+  instance_name     = "k8s-node"
+}
+
+resource "random_string" "random" {
+  length           = 4
+  special          = false
 }
 
 module "vpc" {
   source = "git::github.com/owenJiao/terraform_source.git//vpc"
-  vpc_name = var.vpc_name
+  vpc_name = format("%s-%s-%s", var.project_name, var.vpc_name,random_string.random.result)
   vpc_cidr = var.vpc_cidr
   subnet_name = var.subnet_name
   subnet_cidr = var.subnet_cidr
@@ -29,14 +40,14 @@ module "vpc" {
 
 module "eip" {
    source = "git::github.com/owenJiao/terraform_source.git//eip"
-   eip_name = var.eip_name
+   eip_name = format("%s-%s-%s", var.project_name, var.eip_name,random_string.random.result)
    eip_type = var.eip_type
    bandwidth_name = var.bandwidth_name
    project_name = var.project_name
 }
 
 resource "huaweicloud_cce_cluster" "cce_turbo" {
-  name                   = var.cluster_name
+  name                   = format("%s-%s-%s", var.project_name, var.cluster_name,random_string.random.result)
   flavor_id              = var.flavor_id
   vpc_id                 = module.vpc.vpc_id
   subnet_id              = module.vpc.subnet_id
@@ -55,7 +66,7 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
 resource "huaweicloud_cce_node" "node" {
   count = var.node_count
   cluster_id        = huaweicloud_cce_cluster.cce_turbo.id
-  name              = "${local.instance_name}-${count.index}"
+  name              = "${var.project_name}-${local.instance_name}-${random_string.random.result}-${count.index}"
   flavor_id         = "s3.large.2"
   availability_zone = var.availability_zone
   password         = "123@jjxppp"

@@ -12,14 +12,14 @@ resource "huaweicloud_networking_secgroup" "secgroup" {
 }
 
 data "huaweicloud_vpc_subnets" "subnet" {
-  name = "vela-subnet-bb"
+  name = "vela-subnet-hh"
   # tags {
   #   project = var.project_name
   # }
 }
 
 data "huaweicloud_vpcs" "vpc" {
-  name = "vela-vpc-bb"
+  name = "vela-vpc-hh"
   # tags {
   #   project = var.project_name
   # }
