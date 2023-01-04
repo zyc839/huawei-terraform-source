@@ -11,14 +11,20 @@ terraform {
   }
 }
 
-
-
 locals {
   instance_name     = "k8s-node"
+  kube_proxy_mode   = "ipvs"
+}
+
+data "huaweicloud_compute_flavors" "flavor" {
+  availability_zone = var.availability_zone
+  performance_type  = "normal"
+  cpu_core_count    = 2
+  memory_size       = 4
 }
 
 resource "random_string" "random" {
-  length           = 4
+  length           = 5
   special          = false
 }
 
@@ -58,19 +64,45 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
   cluster_version        = var.cluster_version
   container_network_cidr = var.container_network_cidr
   service_network_cidr   = var.service_network_cidr
+  kube_proxy_mode  = locals.kube_proxy_mode
   tags = {
     project = var.project_name
   }
 }
 
-resource "huaweicloud_cce_node" "node" {
-  count = var.node_count
-  cluster_id        = huaweicloud_cce_cluster.cce_turbo.id
-  name              = "${var.project_name}-${local.instance_name}-${random_string.random.result}-${count.index}"
-  flavor_id         = "s3.large.2"
-  availability_zone = var.availability_zone
-  password         = "123@jjxppp"
-  
+resource "huaweicloud_cce_addon" "coredns" {
+  cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
+  template_name = "coredns"
+  version       = "1.23.3"
+}
+
+# resource "huaweicloud_cce_addon" "autoscaler" {
+#   cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
+#   template_name = "autoscaler"
+#   version       = "1.23.9"
+# }
+
+# resource "huaweicloud_cce_addon" "nginx-ingress" {
+#   cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
+#   template_name = "nginx-ingress"
+#   version       = "2.1.0"
+# }
+
+resource "huaweicloud_cce_node_pool" "node_pool" {
+  cluster_id               = huaweicloud_cce_cluster.cce_turbo.id
+  name                     = format("%s-%s-%s", var.project_name,local.instance_name,random_string.random.result)
+  os                       = "CentOS 7.6"
+  initial_node_count       = 2
+  flavor_id                = data.huaweicloud_compute_flavors.flavor.ids[0]
+  availability_zone        = var.availability_zone
+  password                 = "123@admin"
+  scall_enable             = true
+  min_node_count           = 2
+  max_node_count           = 10
+  scale_down_cooldown_time = 100
+  priority                 = 1
+  type                     = "vm"
+
   root_volume {
     size       = 40
     volumetype = "SSD"
@@ -79,5 +111,28 @@ resource "huaweicloud_cce_node" "node" {
     size       = 100
     volumetype = "SSD"
   }
+
+  tags = {
+    project = var.project_name
+  }
+
 }
+
+# resource "huaweicloud_cce_node" "node" {
+#   count = var.node_count
+#   cluster_id        = huaweicloud_cce_cluster.cce_turbo.id
+#   name              = "${var.project_name}-${local.instance_name}-${random_string.random.result}-${count.index}"
+#   flavor_id         = "s3.large.2"
+#   availability_zone = var.availability_zone
+#   password         = "123@jjxppp"
+  
+#   root_volume {
+#     size       = 40
+#     volumetype = "SSD"
+#   }
+#   data_volumes {
+#     size       = 100
+#     volumetype = "SSD"
+#   }
+# }
 
