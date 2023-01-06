@@ -66,11 +66,11 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
   }
 }
 
-resource "huaweicloud_cce_addon" "coredns" {
-  cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
-  template_name = "coredns"
-  version       = "1.23.3"
-}
+# resource "huaweicloud_cce_addon" "coredns" {
+#   cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
+#   template_name = "coredns"
+#   version       = "1.23.3"
+# }
 
 # resource "huaweicloud_cce_addon" "autoscaler" {
 #   cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
