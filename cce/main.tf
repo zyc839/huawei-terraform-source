@@ -6,9 +6,13 @@ terraform {
     }
     random = {
       source = "hashicorp/random"
-      version = "3.4.3"
+      version = ">=3.4.3"
     }
   }
+}
+
+provider "random" {
+  # Configuration options
 }
 
 locals {
@@ -64,7 +68,7 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
   cluster_version        = var.cluster_version
   container_network_cidr = var.container_network_cidr
   service_network_cidr   = var.service_network_cidr
-  kube_proxy_mode  = locals.kube_proxy_mode
+  kube_proxy_mode        = locals.kube_proxy_mode
   tags = {
     project = var.project_name
   }
