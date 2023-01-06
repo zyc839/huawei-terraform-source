@@ -7,7 +7,6 @@ terraform {
   }
 }
 
-
 locals {
   instance_name     = "k8s-node"
   kube_proxy_mode   = "ipvs"
@@ -61,7 +60,7 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
   cluster_version        = var.cluster_version
   container_network_cidr = var.container_network_cidr
   service_network_cidr   = var.service_network_cidr
-  kube_proxy_mode        = locals.kube_proxy_mode
+  kube_proxy_mode        = local.kube_proxy_mode
   tags = {
     project = var.project_name
   }
