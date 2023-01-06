@@ -26,7 +26,7 @@ resource "random_string" "random" {
 
 module "vpc" {
   source = "git::github.com/owenJiao/terraform_source.git//vpc"
-  vpc_name = format("%s-%s-%s", var.project_name, var.vpc_name,random_string.random.result)
+  vpc_name = format("%s-%s-%s", var.project_name, var.vpc_name,lower(random_string.random.result))
   vpc_cidr = var.vpc_cidr
   subnet_name = var.subnet_name
   subnet_cidr = var.subnet_cidr
@@ -42,14 +42,14 @@ module "vpc" {
 
 module "eip" {
    source = "git::github.com/owenJiao/terraform_source.git//eip"
-   eip_name = format("%s-%s-%s", var.project_name, var.eip_name,random_string.random.result)
+   eip_name = format("%s-%s-%s", var.project_name, var.eip_name,lower(random_string.random.result))
    eip_type = var.eip_type
    bandwidth_name = var.bandwidth_name
    project_name = var.project_name
 }
 
 resource "huaweicloud_cce_cluster" "cce_turbo" {
-  name                   = format("%s-%s-%s", var.project_name, var.cluster_name,random_string.random.result)
+  name                   = format("%s-%s-%s", var.project_name, var.cluster_name,lower(random_string.random.result))
   flavor_id              = var.flavor_id
   vpc_id                 = module.vpc.vpc_id
   subnet_id              = module.vpc.subnet_id
@@ -86,7 +86,7 @@ resource "huaweicloud_cce_addon" "coredns" {
 
 resource "huaweicloud_cce_node_pool" "node_pool" {
   cluster_id               = huaweicloud_cce_cluster.cce_turbo.id
-  name                     = format("%s-%s-%s", var.project_name,local.instance_name,random_string.random.result)
+  name                     = format("%s-%s-%s", var.project_name,local.instance_name,lower(random_string.random.result))
   os                       = "CentOS 7.6"
   initial_node_count       = 2
   flavor_id                = data.huaweicloud_compute_flavors.flavor.ids[0]
