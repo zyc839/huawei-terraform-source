@@ -28,13 +28,13 @@ module "vpc" {
   source = "git::github.com/owenJiao/terraform_source.git//vpc"
   vpc_name = format("%s-%s-%s", var.project_name, var.vpc_name,lower(random_string.random.result))
   vpc_cidr = var.vpc_cidr
-  subnet_name = var.subnet_name
+  subnet_name = format("%s-%s-%s", var.project_name, var.subnet_name,lower(random_string.random.result))
   subnet_cidr = var.subnet_cidr
   availability_zone = var.availability_zone
   subnet_gateway_ip = var.subnet_gateway_ip
   primary_dns = var.primary_dns
   secondary_dns = var.secondary_dns
-  eni_subnet_name = var.eni_subnet_name
+  eni_subnet_name = format("%s-%s-%s", var.project_name, var.eni_subnet_name,lower(random_string.random.result))
   eni_subnet_cidr = var.eni_subnet_cidr
   eni_subnet_gateway_ip = var.eni_subnet_gateway_ip
   project_name = var.project_name
