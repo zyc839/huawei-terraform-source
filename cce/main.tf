@@ -2,11 +2,11 @@ terraform {
   required_providers {
     huaweicloud = {
       source  = "registry.terraform.io/huaweicloud/huaweicloud"
-      version = ">=1.36.0"
+      version = "1.42.0"
     }
     random = {
       source = "hashicorp/random"
-      version = ">=3.4.3"
+      version = "3.4.1"
     }
   }
 }
