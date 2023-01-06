@@ -4,16 +4,9 @@ terraform {
       source  = "registry.terraform.io/huaweicloud/huaweicloud"
       version = "1.42.0"
     }
-    random = {
-      source = "hashicorp/random"
-      version = "3.4.1"
-    }
   }
 }
 
-provider "random" {
-  # Configuration options
-}
 
 locals {
   instance_name     = "k8s-node"
