@@ -72,11 +72,11 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
 #   version       = "1.23.3"
 # }
 
-# resource "huaweicloud_cce_addon" "autoscaler" {
-#   cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
-#   template_name = "autoscaler"
-#   version       = "1.23.9"
-# }
+resource "huaweicloud_cce_addon" "autoscaler" {
+  cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
+  template_name = "autoscaler"
+  version       = "1.23.9"
+}
 
 # resource "huaweicloud_cce_addon" "nginx-ingress" {
 #   cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
