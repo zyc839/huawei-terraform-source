@@ -3,4 +3,9 @@ output "kube_config" {
   description = "EIP id"
 }
 
+output "projects" {
+  value = data.huaweicloud_identity_projects.project
+  description = "project"
+}
+
 
