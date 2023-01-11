@@ -16,8 +16,8 @@ data "huaweicloud_elb_flavors" "l7_flavors" {
 
 data "huaweicloud_elb_flavors" "l4_flavors" {
   type            = "L4"
-  max_connections = 200000
-  cps             = 2000
+  max_connections = 500000
+  cps             = 10000
   bandwidth       = 50
 }
 
