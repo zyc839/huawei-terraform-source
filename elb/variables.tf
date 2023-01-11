@@ -11,11 +11,13 @@ variable "cross_vpc_backend" {
 }
 
 variable "vpc_id" {
+  default = ""
   description = "VPC id"
   type = string
 }
 
 variable "ipv4_subnet_id" {
+  default = ""
   description = "Subnet id"
   type = string
 }
