@@ -72,11 +72,7 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
 #   version       = "1.23.3"
 # }
 
-resource "huaweicloud_cce_addon" "autoscaler" {
-  cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
-  template_name = "autoscaler"
-  version       = "1.23.10"
-}
+
 
 
 # resource "huaweicloud_cce_addon" "nginx-ingress" {
@@ -86,28 +82,30 @@ resource "huaweicloud_cce_addon" "autoscaler" {
 # }
 
 
-# data "huaweicloud_cce_addon_template" "autoscaler" {
-#   cluster_id = huaweicloud_cce_cluster.cce_turbo.id
-#   name       = "autoscaler"
-#   version    = "1.23.3"
-# }
+data "huaweicloud_cce_addon_template" "autoscaler" {
+  cluster_id = huaweicloud_cce_cluster.cce_turbo.id
+  name       = "autoscaler"
+  version    = "1.23.10"
+}
 
-# resource "huaweicloud_cce_addon" "autoscaler" {
-#   cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
-#   template_name = "autoscaler"
-#   version       = "1.23.3"
+resource "huaweicloud_cce_addon" "autoscaler" {
+  cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
+  template_name = "autoscaler"
+  version       = "1.23.10"
 
-#   values {
-#     basic_json  = jsonencode(jsondecode(data.huaweicloud_cce_addon_template.autoscaler.spec).basic)
-#     custom_json = jsonencode(merge(
-#       jsondecode(data.huaweicloud_cce_addon_template.autoscaler.spec).parameters.custom,
-#       {
-#         cluster_id = huaweicloud_cce_cluster.cce_turbo.id
-#       }
-#     ))
-#     flavor_json = jsonencode(jsondecode(data.huaweicloud_cce_addon_template.autoscaler.spec).parameters.flavor2)
-#   }
-# }
+  values {
+    basic  = jsondecode(data.huaweicloud_cce_addon_template.autoscaler.spec).basic
+    custom = merge(
+      jsondecode(data.huaweicloud_cce_addon_template.autoscaler.spec).parameters.custom,
+      {
+        cluster_id = huaweicloud_cce_cluster.cce_turbo.id
+        scaleDownEnabled = false
+        scaleUpUnscheduledPodEnabled = true
+        scaleUpUtilizationEnabled = true
+      }
+    )
+  }
+}
 
 resource "huaweicloud_cce_node_pool" "node_pool" {
   cluster_id               = huaweicloud_cce_cluster.cce_turbo.id
