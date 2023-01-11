@@ -97,9 +97,11 @@ resource "huaweicloud_cce_addon" "autoscaler" {
         {
           cluster_id       = huaweicloud_cce_cluster.cce_turbo.id
           tenant_id        = data.huaweicloud_identity_projects.project.id
+          networkMode      =  "eni"
         }
       )
     )
+    flavor_json = jsonencode(jsondecode(data.huaweicloud_cce_addon_template.autoscaler.spec).parameters.flavor1)
   }
 }
 
