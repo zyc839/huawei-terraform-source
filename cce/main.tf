@@ -66,21 +66,15 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
   }
 }
 
-# resource "huaweicloud_cce_addon" "coredns" {
-#   cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
-#   template_name = "coredns"
-#   version       = "1.23.3"
-# }
-
-
-
-
 # resource "huaweicloud_cce_addon" "nginx-ingress" {
 #   cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
 #   template_name = "nginx-ingress"
 #   version       = "2.1.0"
 # }
 
+data "huaweicloud_identity_projects" "project" {
+  name = "default"
+}
 
 data "huaweicloud_cce_addon_template" "autoscaler" {
   cluster_id = huaweicloud_cce_cluster.cce_turbo.id
@@ -89,20 +83,23 @@ data "huaweicloud_cce_addon_template" "autoscaler" {
 }
 
 resource "huaweicloud_cce_addon" "autoscaler" {
+  depends_on = [
+    resource.huaweicloud_cce_node_pool.node_pool
+  ]
   cluster_id    = huaweicloud_cce_cluster.cce_turbo.id
-  template_name = "autoscaler"
-  version       = "1.23.10"
-
+  template_name = data.huaweicloud_cce_addon_template.autoscaler.name
+  version       = data.huaweicloud_cce_addon_template.autoscaler.version
   values {
-    basic  = jsondecode(data.huaweicloud_cce_addon_template.autoscaler.spec).basic
-    custom = merge(
-      jsondecode(data.huaweicloud_cce_addon_template.autoscaler.spec).parameters.custom,
-      {
-        cluster_id = huaweicloud_cce_cluster.cce_turbo.id
-        scaleDownEnabled = false
-        scaleUpUnscheduledPodEnabled = true
-        scaleUpUtilizationEnabled = true
-      }
+    basic_json = jsonencode(jsondecode(data.huaweicloud_cce_addon_template.autoscaler.spec).basic)
+    custom_json = jsonencode(
+      merge(
+        jsondecode(data.huaweicloud_cce_addon_template.autoscaler.spec).parameters.custom,
+        {
+          cluster_id       = huaweicloud_cce_cluster.cce_turbo.id
+          tenant_id        = data.huaweicloud_identity_projects.project.projects[0].id
+          scaleDownEnabled = false
+        }
+      )
     )
   }
 }
