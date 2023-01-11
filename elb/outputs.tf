@@ -3,12 +3,5 @@ output "elb_eip_ip" {
   description = "Elb public ip"
 }
 
-output "subnet" {
-  value = data.huaweicloud_vpc_subnets.subnet
-}
 
-
-output "vpc" {
-  value = data.huaweicloud_vpcs.vpc
-}
 

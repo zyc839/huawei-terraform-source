@@ -8,39 +8,44 @@ terraform {
 }
 
 data "huaweicloud_elb_flavors" "l7_flavors" {
-  type            = "L7"
-  max_connections = 200000
-  cps             = 2000
-  bandwidth       = 50
+  type            =  var.l7_type
+  max_connections =  var.l7_max_connections
+  cps             =  var.l7_cps
+  bandwidth       =  var.l7_bandwidth
 }
 
 data "huaweicloud_elb_flavors" "l4_flavors" {
-  type            = "L4"
-  max_connections = 500000
-  cps             = 10000
-  bandwidth       = 50
+  type            =  var.l4_type
+  max_connections =  var.l4_max_connections
+  cps             =  var.l4_cps
+  bandwidth       =  var.l4_bandwidth
 }
 
 data "huaweicloud_vpc_subnets" "subnet" {
-  name = "huawei-vela-subnet-ucacb"
+  name = var.subnet_name
   # tags {
   #   project = var.project_name
   # }
 }
 
 data "huaweicloud_vpcs" "vpc" {
-  name = "huawei-vela-vpc-ucacb"
+  name = var.vpc_name
   # tags {
   #   project = var.project_name
   # }
 }
 
+resource "random_string" "random" {
+  length           = 5
+  special          = false
+}
+
 
 resource "huaweicloud_elb_loadbalancer" "loadbalance" {
-  name              = var.lb_name
+  name              = format("%s-%s-%s", var.project_name, var.lb_name,lower(random_string.random.result))
   cross_vpc_backend = var.cross_vpc_backend
-  vpc_id            = var.vpc_id != "0" ? var.vpc_id : data.huaweicloud_vpcs.vpc.vpcs[0].id
-  ipv4_subnet_id    = var.ipv4_subnet_id != "0" ? var.ipv4_subnet_id : data.huaweicloud_vpc_subnets.subnet.subnets[0].ipv4_subnet_id
+  vpc_id            = data.huaweicloud_vpcs.vpc.vpcs[0].id
+  ipv4_subnet_id    = data.huaweicloud_vpc_subnets.subnet.subnets[0].ipv4_subnet_id
   l4_flavor_id = data.huaweicloud_elb_flavors.l4_flavors.ids[0]
   l7_flavor_id = data.huaweicloud_elb_flavors.l7_flavors.ids[0]
   availability_zone = [
