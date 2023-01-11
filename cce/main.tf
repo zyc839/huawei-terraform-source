@@ -97,7 +97,6 @@ resource "huaweicloud_cce_addon" "autoscaler" {
         {
           cluster_id       = huaweicloud_cce_cluster.cce_turbo.id
           tenant_id        = data.huaweicloud_identity_projects.project.id
-          scaleDownEnabled = false
         }
       )
     )
