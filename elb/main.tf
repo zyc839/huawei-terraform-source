@@ -40,7 +40,7 @@ resource "huaweicloud_elb_loadbalancer" "loadbalance" {
   name              = var.lb_name
   cross_vpc_backend = var.cross_vpc_backend
   vpc_id            = var.vpc_id != "" ? var.vpc_id : data.huaweicloud_vpcs.vpc.vpcs[0].id
-  ipv4_subnet_id    = var.ipv4_subnet_id != "" ? var.subnet_id : data.huaweicloud_vpc_subnets.subnet.subnets[0].ipv4_subnet_id
+  ipv4_subnet_id    = var.ipv4_subnet_id != "" ? var.ipv4_subnet_id : data.huaweicloud_vpc_subnets.subnet.subnets[0].ipv4_subnet_id
   l4_flavor_id = data.huaweicloud_elb_flavors.l4_flavors.ids[0]
   l7_flavor_id = data.huaweicloud_elb_flavors.l7_flavors.ids[0]
   availability_zone = [
