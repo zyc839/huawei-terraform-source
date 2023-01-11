@@ -96,7 +96,7 @@ resource "huaweicloud_cce_addon" "autoscaler" {
         jsondecode(data.huaweicloud_cce_addon_template.autoscaler.spec).parameters.custom,
         {
           cluster_id       = huaweicloud_cce_cluster.cce_turbo.id
-          tenant_id        = data.huaweicloud_identity_projects.project.projects[0].id
+          tenant_id        = 0 //data.huaweicloud_identity_projects.project.projects[0].id
           scaleDownEnabled = false
         }
       )
