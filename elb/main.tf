@@ -22,17 +22,17 @@ data "huaweicloud_elb_flavors" "l4_flavors" {
 }
 
 data "huaweicloud_vpc_subnets" "subnet" {
+  name = "huawei-vela-vpc-ucacb"
   # tags {
   #   project = var.project_name
   # }
-  name = "huawei-vela-vpc-ucacb"
 }
 
 data "huaweicloud_vpcs" "vpc" {
+  name = "huawei-vela-subnet-ucacb"
   # tags {
   #   project = var.project_name
   # }
-  name = "huawei-vela-subnet-ucacb"
 }
 
 
