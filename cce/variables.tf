@@ -233,9 +233,13 @@ variable "data_volumes_volumetype" {
 }
 
 
-
 variable "project_name" {
   description = "Project name"
+  type = string
+}
+
+variable "availability_zone" {
+  description = "Availability zone"
   type = string
 }
 

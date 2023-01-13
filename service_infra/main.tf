@@ -88,6 +88,7 @@ module "cce" {
   root_volume_volumetype   = var.root_volume_volumetype
   data_volumes_size        = var.data_volumes_size
   data_volumes_volumetype  = var.data_volumes_volumetype
+  project_name = var.project_name
 }
 
 # elb
