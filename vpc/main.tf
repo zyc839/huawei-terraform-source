@@ -51,13 +51,11 @@ resource "huaweicloud_vpc_subnet" "eni_subnet" {
 #   }
 # }
 
-
-
-resource "huaweicloud_vpc_route" "vpc_route" {
-  vpc_id      = huaweicloud_vpc.vpc.id
-  destination = var.route_destination
-  type        = var.route_type
-  nexthop     = var.route_nexthop
-}
+# resource "huaweicloud_vpc_route" "vpc_route" {
+#   vpc_id      = huaweicloud_vpc.vpc.id
+#   destination = var.route_destination
+#   type        = var.route_type
+#   nexthop     = var.route_nexthop
+# }
 
 
