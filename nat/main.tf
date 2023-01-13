@@ -31,7 +31,7 @@ resource "huaweicloud_nat_gateway" "nat" {
 }
 
 resource "huaweicloud_nat_snat_rule" "snat" {
-  nat_gateway_id = huaweicloud_nat_gateway.gateway.id
+  nat_gateway_id = huaweicloud_nat_gateway.nat.id
   floating_ip_id = var.publicip_id
   subnet_id      = data.huaweicloud_vpc_subnets.subnet.subnets[0].id
 }
