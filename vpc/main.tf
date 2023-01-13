@@ -37,4 +37,17 @@ resource "huaweicloud_vpc_subnet" "eni_subnet" {
   tags = {
     project = var.project_name
   }
+
+resource "huaweicloud_vpc_route_table" "route_table" {
+  name        = var.route_table_name
+  vpc_id      = huaweicloud_vpc.vpc.id
+  route {
+    destination = var.route_destination
+    type        = var.route_type
+    nexthop     = var.route_nexthop
+  }
+}
+
+
+
 }

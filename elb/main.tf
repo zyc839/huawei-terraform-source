@@ -42,7 +42,7 @@ resource "random_string" "random" {
 
 
 resource "huaweicloud_elb_loadbalancer" "loadbalance" {
-  name              = format("%s-%s-%s", var.project_name, var.lb_name,lower(random_string.random.result))
+  name              = var.lb_name
   cross_vpc_backend = var.cross_vpc_backend
   vpc_id            = data.huaweicloud_vpcs.vpc.vpcs[0].id
   ipv4_subnet_id    = data.huaweicloud_vpc_subnets.subnet.subnets[0].ipv4_subnet_id

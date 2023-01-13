@@ -10,6 +10,12 @@ terraform {
 locals {
   instance_name     = "k8s-node"
   kube_proxy_mode   = "ipvs"
+  autoscaler_name = "autoscaler"
+  scall_enable = true
+}
+
+data "huaweicloud_identity_projects" "project" {
+  name = "default"
 }
 
 data "huaweicloud_compute_flavors" "flavor" {
@@ -19,44 +25,28 @@ data "huaweicloud_compute_flavors" "flavor" {
   memory_size       = 4
 }
 
+data "huaweicloud_cce_addon_template" "autoscaler" {
+  cluster_id = huaweicloud_cce_cluster.cce_turbo.id
+  name       = local.autoscaler_name
+  version    = var.autoscaler_version
+}
+
+
 resource "random_string" "random" {
   length           = 5
   special          = false
 }
 
-module "vpc" {
-  source = "git::github.com/owenJiao/terraform_source.git//vpc"
-  vpc_name = format("%s-%s-%s", var.project_name, var.vpc_name,lower(random_string.random.result))
-  vpc_cidr = var.vpc_cidr
-  subnet_name = format("%s-%s-%s", var.project_name, var.subnet_name,lower(random_string.random.result))
-  subnet_cidr = var.subnet_cidr
-  availability_zone = var.availability_zone
-  subnet_gateway_ip = var.subnet_gateway_ip
-  primary_dns = var.primary_dns
-  secondary_dns = var.secondary_dns
-  eni_subnet_name = format("%s-%s-%s", var.project_name, var.eni_subnet_name,lower(random_string.random.result))
-  eni_subnet_cidr = var.eni_subnet_cidr
-  eni_subnet_gateway_ip = var.eni_subnet_gateway_ip
-  project_name = var.project_name
-}
-
-module "eip" {
-   source = "git::github.com/owenJiao/terraform_source.git//eip"
-   eip_name = format("%s-%s-%s", var.project_name, var.eip_name,lower(random_string.random.result))
-   eip_type = var.eip_type
-   bandwidth_name = var.bandwidth_name
-   project_name = var.project_name
-}
 
 resource "huaweicloud_cce_cluster" "cce_turbo" {
-  name                   = format("%s-%s-%s", var.project_name, var.cluster_name,lower(random_string.random.result))
+  name                   = var.cluster_name
   flavor_id              = var.flavor_id
-  vpc_id                 = module.vpc.vpc_id
-  subnet_id              = module.vpc.subnet_id
+  vpc_id                 = var.vpc_id
+  subnet_id              = var.subnet_id
   container_network_type = var.network_type
-  eni_subnet_id          = module.vpc.eni_subnet_id
-  eni_subnet_cidr        = module.vpc.eni_subnet_cidr
-  eip                    = module.eip.address
+  eni_subnet_id          = var.eni_subnet_id
+  eni_subnet_cidr        = var.eni_subnet_cidr
+  eip                    = var.eip_address
   cluster_version        = var.cluster_version
   container_network_cidr = var.container_network_cidr
   service_network_cidr   = var.service_network_cidr
@@ -72,15 +62,6 @@ resource "huaweicloud_cce_cluster" "cce_turbo" {
 #   version       = "2.1.0"
 # }
 
-data "huaweicloud_identity_projects" "project" {
-  name = "default"
-}
-
-data "huaweicloud_cce_addon_template" "autoscaler" {
-  cluster_id = huaweicloud_cce_cluster.cce_turbo.id
-  name       = "autoscaler"
-  version    = "1.23.10"
-}
 
 resource "huaweicloud_cce_addon" "autoscaler" {
   depends_on = [
@@ -97,7 +78,6 @@ resource "huaweicloud_cce_addon" "autoscaler" {
         {
           cluster_id       = huaweicloud_cce_cluster.cce_turbo.id
           tenant_id        = data.huaweicloud_identity_projects.project.id
-          networkMode      =  "eni"
         }
       )
     )
@@ -108,25 +88,25 @@ resource "huaweicloud_cce_addon" "autoscaler" {
 resource "huaweicloud_cce_node_pool" "node_pool" {
   cluster_id               = huaweicloud_cce_cluster.cce_turbo.id
   name                     = format("%s-%s-%s", var.project_name,local.instance_name,lower(random_string.random.result))
-  os                       = "CentOS 7.6"
-  initial_node_count       = 2
+  os                       = var.node_os
+  initial_node_count       = var.initial_node_count
   flavor_id                = data.huaweicloud_compute_flavors.flavor.ids[0]
   availability_zone        = var.availability_zone
-  password                 = "123@admin"
-  scall_enable             = true
-  min_node_count           = 2
-  max_node_count           = 10
-  scale_down_cooldown_time = 100
-  priority                 = 1
-  type                     = "vm"
+  password                 = var.node_password
+  scall_enable             = local.scall_enable     
+  min_node_count           = var.min_node_count
+  max_node_count           = var.max_node_count
+  scale_down_cooldown_time = var.scale_down_cooldown_time
+  priority                 = var.priority
+  type                     = var.node_type
 
   root_volume {
-    size       = 40
-    volumetype = "SSD"
+    size       = var.root_volume_size
+    volumetype = var.root_volume_volumetype
   }
   data_volumes {
-    size       = 100
-    volumetype = "SSD"
+    size       = var.data_volumes_size
+    volumetype = var.data_volumes_volumetype
   }
 
   tags = {

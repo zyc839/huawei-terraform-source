@@ -1,5 +1,48 @@
-# -------  vpc module -------
+variable "project_name" {
+  description = "Project name"
+  type = string
+}
 
+variable "availability_zone" {
+  description = "Availability zone"
+  default = ""
+  type = string
+}
+
+# -------------eip-----------------
+variable "eip_name" {
+  description = "EIP name"
+  default = "vela-eip"
+  type = string
+}
+
+variable "eip_type" {
+  description = "EIP type"
+  default = "5_bgp"
+  type = string
+}
+
+variable "bandwidth_name" {
+  description = "Bandwidth name"
+  default = "vela-bw"
+  type = string
+}
+
+# -------------nat-----------------
+variable "gw_name" {
+  description = "Gateway name"
+  default = "vela-gw"
+  type = string
+}
+
+variable "gw_type" {
+  description = "Gateway type"
+  default = 1
+  type = number
+}
+
+
+# -------------vpc-----------------
 variable "vpc_name" {
   description = "Vpc name"
   default = "vela-vpc"
@@ -21,12 +64,6 @@ variable "subnet_name" {
 variable "subnet_cidr" {
   description = "Subnet CIDR block"
   default = "192.168.0.0/24"
-  type = string
-}
-
-variable "availability_zone" {
-  description = "Availability zone"
-  default = ""
   type = string
 }
 
@@ -66,31 +103,30 @@ variable "eni_subnet_gateway_ip" {
   type = string
 }
 
-
-# -------  eip module -------
-
-variable "eip_name" {
-  description = "EIP name"
-  default = "vela-eip"
+variable "route_table_name" {
+  description = "Route table name"
+  default = "vela_route_table"
   type = string
 }
 
-variable "eip_type" {
-  description = "EIP type"
-  default = "5_bgp"
+variable "route_destination" {
+  description = "Route destination"
+  default = "0.0.0.0/0"
   type = string
 }
 
-variable "bandwidth_name" {
-  description = "Bandwidth name"
-  default = "vela-bw"
+variable "route_type" {
+  description = "Route type"
+  default = "nat"
   type = string
 }
 
+variable "route_nexthop" {
+  description = "Route nexthop"
+  type = string
+}
 
-
-# -------  cce  -------
-
+# -------------cce-----------------
 variable "cluster_name" {
   description = "Cluster name"
   default = "vela-cce"
@@ -103,37 +139,11 @@ variable "flavor_id" {
   type = string
 }
 
-variable "vpc_id" {
-  description = "vpc id"
-  type = string
-}
-
-variable "subnet_id" {
-  description = "subnet id"
-  type = string
-}
-
 variable "network_type" {
   description = "Network type"
   default = "eni"
   type = string
 }
-
-variable "eni_subnet_id" {
-  description = "Eni subnet id"
-  type = string
-}
-
-variable "eni_subnet_cidr" {
-  description = "Eni subnet cidr"
-  type = string
-}
-
-variable "eip_address" {
-  description = "Eip address"
-  type = string
-}
-
 
 variable "cluster_version" {
   description = "Cluster version"
@@ -233,9 +243,102 @@ variable "data_volumes_volumetype" {
 }
 
 
+# -------------elb-----------------
 
-variable "project_name" {
-  description = "Project name"
+variable "lb_name" {
+  description = "Loadbalancer name"
+  default = "vela-lb"
   type = string
 }
+
+variable "cross_vpc_backend" {
+  description = "Does cross vpc backend"
+  default = "true"
+  type = bool
+}
+
+variable "iptype" {
+  description = "Ip type"
+  default = "5_bgp"
+  type = string
+}
+
+variable "bandwidth_charge_mode" {
+  description = "Bandwidth charge mode"
+  default = "traffic"
+  type = string
+}
+
+variable "sharetype" {
+  description = "Share type"
+  default = "PER"
+  type = string
+}
+
+variable "bandwidth_size" {
+  description = "Bandwidth size"
+  default = 10
+  type = number
+}
+
+variable "l7_type" {
+  default = "L7"
+  description = "L7 type"
+  type = string
+}
+
+variable "l7_max_connections" {
+  default = 200000
+  description = "L7 max connections"
+  type = number
+}
+
+variable "l7_cps" {
+  default = 2000
+  description = "L7 cps"
+  type = number
+}
+
+variable "l7_bandwidth" {
+  default = 50
+  description = "L7 bandwidth"
+  type = number
+}
+
+variable "l4_type" {
+  default = "L4"
+  description = "L4 type"
+  type = string
+}
+
+variable "l4_max_connections" {
+  default = 500000
+  description = "L4 max connections"
+  type = number
+}
+
+variable "l4_cps" {
+  default = 10000
+  description = "L4 cps"
+  type = number
+}
+
+variable "l4_bandwidth" {
+  default = 50
+  description = "L4 bandwidth"
+  type = number
+}
+
+
+variable "subnet_name" {
+  description = "Subnet name"
+  type = string
+}
+
+variable "vpc_name" {
+  description = "VPC name"
+  type = string
+}
+
+
 

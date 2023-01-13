@@ -68,3 +68,28 @@ variable "project_name" {
   description = "Project name"
   type = string
 }
+
+variable "route_table_name" {
+  description = "Route table name"
+  default = "vela_route_table"
+  type = string
+}
+
+variable "route_destination" {
+  description = "Route destination"
+  default = "0.0.0.0/0"
+  type = string
+}
+
+variable "route_type" {
+  description = "Route type"
+  default = "nat"
+  type = string
+}
+
+variable "route_nexthop" {
+  description = "Route nexthop"
+  type = string
+}
+
+
