@@ -23,7 +23,7 @@ resource "random_string" "random" {
 module "eip" {
    count = local.eip_count
    source = "git::github.com/owenJiao/terraform_source.git//eip"
-   eip_name = format("%s-%s-%s-%s", var.project_name, var.eip_name,lower(random_string.random.result),local.index)
+   eip_name = format("%s-%s-%s-%s", var.project_name, var.eip_name,lower(random_string.random.result),count.index)
    eip_type = var.eip_type
    bandwidth_name = format("%s-%s-%s", var.project_name, var.bandwidth_name,lower(random_string.random.result))
    project_name = var.project_name
