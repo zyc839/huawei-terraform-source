@@ -35,6 +35,8 @@ module "nat" {
   gw_name = format("%s-%s-%s", var.project_name, var.gw_name,lower(random_string.random.result))
   gw_type = var.gw_type
   publicip_id = module.eip[0].id
+  subnet_name = var.subnet_name
+  vpc_name    = var.vpc_name
 }
 
 # vpc
