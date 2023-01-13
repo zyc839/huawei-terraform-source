@@ -8,32 +8,32 @@ terraform {
 }
 
 
-data "huaweicloud_vpc_subnets" "subnet" {
-  name = var.subnet_id
-  # tags {
-  #   project = var.project_name
-  # }
-}
+# data "huaweicloud_vpc_subnets" "subnet" {
+#   name = var.subnet_id
+#   # tags {
+#   #   project = var.project_name
+#   # }
+# }
 
-data "huaweicloud_vpcs" "vpc" {
-  name = var.vpc_id
-  # tags {
-  #   project = var.project_name
-  # }
-}
+# data "huaweicloud_vpcs" "vpc" {
+#   name = var.vpc_id
+#   # tags {
+#   #   project = var.project_name
+#   # }
+# }
 
 resource "huaweicloud_nat_gateway" "nat" {
   name        = var.gw_name
   spec        = var.gw_type
-  vpc_id      = data.huaweicloud_vpcs.vpc.vpcs[0].id
-  subnet_id   = data.huaweicloud_vpc_subnets.subnet.subnets[0].id
+  vpc_id      = var.vpc_id
+  subnet_id   = var.subnet_id
 
 }
 
 resource "huaweicloud_nat_snat_rule" "snat" {
   nat_gateway_id = huaweicloud_nat_gateway.nat.id
   floating_ip_id = var.publicip_id
-  subnet_id      = data.huaweicloud_vpc_subnets.subnet.subnets[0].id
+  subnet_id      = var.subnet_id
 }
 
 

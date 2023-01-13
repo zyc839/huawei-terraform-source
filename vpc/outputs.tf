@@ -8,8 +8,8 @@ output "subnet_id" {
     description = "subnet id"
 }
 
-output "subnet_subnet_id" {
-    value = huaweicloud_vpc_subnet.subnet.subnet_id
+output "ipv4_subnet_id" {
+    value = huaweicloud_vpc_subnet.subnet.ipv4_subnet_id
     description = "subnet_subnet id"
 }
 
