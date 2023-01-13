@@ -22,14 +22,14 @@ data "huaweicloud_elb_flavors" "l4_flavors" {
 }
 
 data "huaweicloud_vpc_subnets" "subnet" {
-  name = var.subnet_name
+  id = var.subnet_id
   # tags {
   #   project = var.project_name
   # }
 }
 
 data "huaweicloud_vpcs" "vpc" {
-  name = var.vpc_name
+  id = var.vpc_id
   # tags {
   #   project = var.project_name
   # }

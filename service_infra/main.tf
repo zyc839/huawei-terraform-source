@@ -101,8 +101,8 @@ module "elb" {
   l4_max_connections =  var.l4_max_connections
   l4_cps             =  var.l4_cps
   l4_bandwidth       =  var.l4_bandwidth
-  subnet_name        = var.subnet_name
-  vpc_name           = var.vpc_name
+  subnet_id        = module.vpc.subnet_id
+  vpc_id           = module.vpc.vpc_id
   lb_name            = format("%s-%s-%s", var.project_name, var.lb_name,lower(random_string.random.result))
   cross_vpc_backend  = var.cross_vpc_backend
   availability_zone  = var.availability_zone

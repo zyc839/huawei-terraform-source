@@ -121,10 +121,6 @@ variable "route_type" {
   type = string
 }
 
-variable "route_nexthop" {
-  description = "Route nexthop"
-  type = string
-}
 
 # -------------cce-----------------
 variable "cluster_name" {
@@ -329,16 +325,6 @@ variable "l4_bandwidth" {
   type = number
 }
 
-
-variable "subnet_name" {
-  description = "Subnet name"
-  type = string
-}
-
-variable "vpc_name" {
-  description = "VPC name"
-  type = string
-}
 
 
 
