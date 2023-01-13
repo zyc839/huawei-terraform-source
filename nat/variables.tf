@@ -16,13 +16,13 @@ variable "publicip_id" {
   type = string
 }
 
-variable "subnet_name" {
-  description = "Subnet name"
+variable "subnet_id" {
+  description = "Subnet id"
   type = string
 }
 
-variable "vpc_name" {
-  description = "VPC name"
+variable "vpc_id" {
+  description = "VPC id"
   type = string
 }
 
