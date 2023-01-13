@@ -90,7 +90,7 @@ resource "huaweicloud_cce_node_pool" "node_pool" {
   name                     = format("%s-%s-%s", var.project_name,local.instance_name,lower(random_string.random.result))
   os                       = var.node_os
   initial_node_count       = var.initial_node_count
-  flavor_id                = data.huaweicloud_compute_flavors.flavor.ids[0]
+  flavor_id                = data.huaweicloud_compute_flavors.flavor.ids[1]
   availability_zone        = var.availability_zone
   password                 = var.node_password
   scall_enable             = local.scall_enable     
