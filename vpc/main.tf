@@ -40,16 +40,24 @@ resource "huaweicloud_vpc_subnet" "eni_subnet" {
 }
 
 
-resource "huaweicloud_vpc_route_table" "route_table" {
-  name        = var.route_table_name
+# Only create one route table because of RouteTable Limit
+# resource "huaweicloud_vpc_route_table" "route_table" {
+#   name        = var.route_table_name
+#   vpc_id      = huaweicloud_vpc.vpc.id
+#   route {
+#     destination = var.route_destination
+#     type        = var.route_type
+#     nexthop     = var.route_nexthop
+#   }
+# }
+
+
+
+resource "huaweicloud_vpc_route" "vpc_route" {
   vpc_id      = huaweicloud_vpc.vpc.id
-  route {
-    destination = var.route_destination
-    type        = var.route_type
-    nexthop     = var.route_nexthop
-  }
+  destination = var.route_destination
+  type        = var.route_type
+  nexthop     = var.route_nexthop
 }
-
-
 
 
