@@ -51,10 +51,10 @@ variable "bandwidth_size" {
   type = number
 }
 
-variable "project_name" {
-  description = "Project name"
-  type = string
-}
+# variable "project_name" {
+#   description = "Project name"
+#   type = string
+# }
 
 variable "l7_type" {
   default = "L7"
