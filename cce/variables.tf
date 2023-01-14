@@ -243,3 +243,21 @@ variable "availability_zone" {
   type = string
 }
 
+variable "nodepool_performance_type" {
+  description = "Node pool performance_type"
+  default = "computingv3"
+  type = string
+}
+
+variable "nodepool_cpu_core_count" {
+  description = "Node pool cpu_core_count"
+  default = 2
+  type = number
+}
+
+variable "nodepool_memory_size" {
+  description = "Node pool memory_size"
+  default = 4
+  type = number
+}
+

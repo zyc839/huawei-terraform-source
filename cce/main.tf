@@ -20,9 +20,9 @@ data "huaweicloud_identity_projects" "project" {
 
 data "huaweicloud_compute_flavors" "flavor" {
   availability_zone = var.availability_zone
-  performance_type  = "normal"
-  cpu_core_count    = 2
-  memory_size       = 4
+  performance_type  = var.nodepool_performance_type
+  cpu_core_count    = var.nodepool_cpu_core_count
+  memory_size       = var.nodepool_memory_size
 }
 
 data "huaweicloud_cce_addon_template" "autoscaler" {
