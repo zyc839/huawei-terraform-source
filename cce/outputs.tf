@@ -8,9 +8,9 @@ output "projects" {
   description = "project"
 }
 
-output "flavor" {
-  value = data.huaweicloud_compute_flavors.flavor
-}
+# output "flavor" {
+#   value = data.huaweicloud_compute_flavors.flavor
+# }
 
 
 

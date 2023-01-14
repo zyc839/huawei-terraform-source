@@ -4,8 +4,8 @@ output "kube_config" {
 }
 
 
-output "flavor" {
-  value = module.cce.flavor
-}
+# output "flavor" {
+#   value = module.cce.flavor
+# }
 
 
