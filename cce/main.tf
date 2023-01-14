@@ -18,12 +18,12 @@ data "huaweicloud_identity_projects" "project" {
   name = "default"
 }
 
-data "huaweicloud_compute_flavors" "flavor" {
-  availability_zone = var.availability_zone
-  performance_type  = var.nodepool_performance_type
-  cpu_core_count    = var.nodepool_cpu_core_count
-  memory_size       = var.nodepool_memory_size
-}
+# data "huaweicloud_compute_flavors" "flavor" {
+#   availability_zone = var.availability_zone
+#   performance_type  = var.nodepool_performance_type
+#   cpu_core_count    = var.nodepool_cpu_core_count
+#   memory_size       = var.nodepool_memory_size
+# }
 
 data "huaweicloud_cce_addon_template" "autoscaler" {
   cluster_id = huaweicloud_cce_cluster.cce_turbo.id
@@ -90,7 +90,7 @@ resource "huaweicloud_cce_node_pool" "node_pool" {
   name                     = format("%s-%s-%s", var.project_name,local.instance_name,lower(random_string.random.result))
   os                       = var.node_os
   initial_node_count       = var.initial_node_count
-  flavor_id                = data.huaweicloud_compute_flavors.flavor.ids[1]
+  flavor_id                = var.nodepool_flavor_id//data.huaweicloud_compute_flavors.flavor.ids[1]
   availability_zone        = var.availability_zone
   password                 = var.node_password
   scall_enable             = local.scall_enable     

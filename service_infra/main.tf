@@ -89,9 +89,10 @@ module "cce" {
   data_volumes_size        = var.data_volumes_size
   data_volumes_volumetype  = var.data_volumes_volumetype
   project_name = var.project_name
-  nodepool_performance_type  = var.nodepool_performance_type
-  nodepool_cpu_core_count    = var.nodepool_cpu_core_count
-  nodepool_memory_size       = var.nodepool_memory_size
+  nodepool_flavor_id = var.nodepool_flavor_id
+  #nodepool_performance_type  = var.nodepool_performance_type
+  # nodepool_cpu_core_count    = var.nodepool_cpu_core_count
+  # nodepool_memory_size       = var.nodepool_memory_size
 }
 
 # elb
