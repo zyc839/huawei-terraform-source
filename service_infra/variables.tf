@@ -401,7 +401,7 @@ variable "db_password" {
 
 variable "volume_type" {
   description = "Volume type"
-  default = "ULTRAHIGH"
+  default = "CLOUDSSD"
   type = string
 }
 
