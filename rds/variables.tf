@@ -86,11 +86,11 @@ variable "subnet_id" {
   type = string
 }
 
-variable "rds_flavor" {
-  description = "Rds flavor"
-  default = "rds.pg.x1.xlarge.8.ha"
-  type = string
-}
+# variable "rds_flavor" {
+#   description = "Rds flavor"
+#   default = "rds.pg.x1.xlarge.8.ha"
+#   type = string
+# }
 
 
 

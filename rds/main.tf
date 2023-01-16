@@ -25,12 +25,14 @@ data "huaweicloud_vpcs" "vpc" {
   # }
 }
 
-# data "huaweicloud_rds_flavors" "flavor" {
-#   db_type       = "PostgreSQL"
-#   db_version    = "13"
-#   instance_mode = "ha"
-#   group_type = "dedicated"
-# }
+data "huaweicloud_rds_flavors" "flavor" {
+  db_type       = "PostgreSQL"
+  db_version    = "13"
+  instance_mode = "ha"
+  group_type = "dedicated"
+  vcpus = 2
+  memory = 4
+}
 
 
 # resource "huaweicloud_rds_instance" "instance" {
@@ -65,7 +67,7 @@ data "huaweicloud_vpcs" "vpc" {
 
 resource "huaweicloud_rds_instance" "instance" {
   name                = var.rds_instance_name
-  flavor              = var.rds_flavor
+  flavor              = data.huaweicloud_rds_flavors.flavor.flavors[0].id // var.rds_flavor
   ha_replication_mode = var.ha_replication_mode
   vpc_id              = var.vpc_id // != "default" ? var.vpc_id : data.huaweicloud_vpcs.vpc.vpcs[0].id
   subnet_id           = var.subnet_id // != "default" ? var.subnet_id : data.huaweicloud_vpc_subnets.subnet.subnets[0].id
