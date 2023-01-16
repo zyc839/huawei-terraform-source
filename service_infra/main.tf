@@ -120,7 +120,7 @@ module "elb" {
 
 # rds
 module "rds" {
-  source = "git::github.com/owenJiao/terraform_source.git//elb"
+  source = "git::github.com/owenJiao/terraform_source.git//rds"
   secgroup_db_name = format("%s-%s-%s", var.project_name, var.secgroup_db_name,lower(random_string.random.result))
   rds_instance_name = format("%s-%s-%s", var.project_name, var.rds_instance_name,lower(random_string.random.result))
   ha_replication_mode = var.ha_replication_mode
