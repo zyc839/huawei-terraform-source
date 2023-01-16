@@ -8,14 +8,14 @@ output "elb_public_ip" {
    description = "ELB pubic ip"
 }
 
-output "rds_private_ips" {
-   value = module.rds.private_ips
-   description = "RDS private ip"
-}
+# output "rds_private_ips" {
+#    value = module.rds.private_ips
+#    description = "RDS private ip"
+# }
 
-output "rds_public_ips" {
-   value = module.rds.public_ips
-   description = "RDS pubic ip"
-}
+# output "rds_public_ips" {
+#    value = module.rds.public_ips
+#    description = "RDS pubic ip"
+# }
 
 
