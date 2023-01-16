@@ -86,11 +86,46 @@ variable "subnet_id" {
   type = string
 }
 
-# variable "rds_flavor" {
-#   description = "Rds flavor"
-#   default = "rds.pg.x1.xlarge.8.ha"
-#   type = string
-# }
+variable "rds_flavor_db_type" {
+  description = "Rds flavor db type"
+  default = "PostgreSQL"
+  type = string
+}
+
+variable "rds_flavor_db_version" {
+  description = "Rds flavor db version"
+  default = "13"
+  type = string
+}
+
+variable "rds_flavor_instance_mode" {
+  description = "Rds flavor instance mode"
+  default = "ha"
+  type = string
+}
+
+variable "rds_flavor_group_type" {
+  description = "Rds flavor group type"
+  default = "dedicated"
+  type = string
+}
+
+
+variable "rds_flavor_vcpus" {
+  description = "Rds flavor vcpus"
+  default = 2
+  type = number
+}
+
+
+variable "rds_flavor_memory" {
+  description = "Rds flavor memory"
+  default = 4
+  type = number
+}
+
+
+
 
 
 

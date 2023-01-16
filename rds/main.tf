@@ -26,12 +26,12 @@ data "huaweicloud_vpcs" "vpc" {
 }
 
 data "huaweicloud_rds_flavors" "flavor" {
-  db_type       = "PostgreSQL"
-  db_version    = "13"
-  instance_mode = "ha"
-  group_type = "dedicated"
-  vcpus = 2
-  memory = 4
+  db_type       =  var.rds_flavor_db_type
+  db_version    =  var.rds_flavor_db_version
+  instance_mode =  var.rds_flavor_instance_mode
+  group_type =     var.rds_flavor_group_type
+  vcpus =          var.rds_flavor_vcpus
+  memory =         var.rds_flavor_memory
 }
 
 
