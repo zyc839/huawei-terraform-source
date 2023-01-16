@@ -67,7 +67,7 @@ data "huaweicloud_rds_flavors" "flavor" {
 
 resource "huaweicloud_rds_instance" "instance" {
   name                = var.rds_instance_name
-  flavor              = data.huaweicloud_rds_flavors.flavor.flavors[0].id // var.rds_flavor
+  flavor              = data.huaweicloud_rds_flavors.flavor.flavors[0].name // var.rds_flavor
   ha_replication_mode = var.ha_replication_mode
   vpc_id              = var.vpc_id // != "default" ? var.vpc_id : data.huaweicloud_vpcs.vpc.vpcs[0].id
   subnet_id           = var.subnet_id // != "default" ? var.subnet_id : data.huaweicloud_vpc_subnets.subnet.subnets[0].id
