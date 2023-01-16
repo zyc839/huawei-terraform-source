@@ -12,14 +12,14 @@ resource "huaweicloud_networking_secgroup" "secgroup" {
 }
 
 data "huaweicloud_vpc_subnets" "subnet" {
-  name = "vela-subnet-hh"
+  id = var.subnet_id
   # tags {
   #   project = var.project_name
   # }
 }
 
 data "huaweicloud_vpcs" "vpc" {
-  name = "vela-vpc-hh"
+  id = var.vpc_id
   # tags {
   #   project = var.project_name
   # }
@@ -65,10 +65,10 @@ data "huaweicloud_vpcs" "vpc" {
 
 resource "huaweicloud_rds_instance" "instance" {
   name                = var.rds_instance_name
-  flavor              = "rds.pg.x1.xlarge.8.ha"
+  flavor              = var.rds_flavor
   ha_replication_mode = var.ha_replication_mode
-  vpc_id              = var.vpc_id != "default" ? var.vpc_id : data.huaweicloud_vpcs.vpc.vpcs[0].id
-  subnet_id           = var.subnet_id != "default" ? var.subnet_id : data.huaweicloud_vpc_subnets.subnet.subnets[0].id
+  vpc_id              = var.vpc_id // != "default" ? var.vpc_id : data.huaweicloud_vpcs.vpc.vpcs[0].id
+  subnet_id           = var.subnet_id // != "default" ? var.subnet_id : data.huaweicloud_vpc_subnets.subnet.subnets[0].id
   security_group_id   = huaweicloud_networking_secgroup.secgroup.id
   availability_zone   = [
     var.primary_availability_zone,
@@ -88,4 +88,8 @@ resource "huaweicloud_rds_instance" "instance" {
     start_time = var.backup_strategy_start_time
     keep_days  = var.backup_strategy_keep_days
   }
+  tags = {
+    project = var.project_name
+  }
+
 }

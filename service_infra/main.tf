@@ -119,3 +119,23 @@ module "elb" {
 
 
 # rds
+module "rds" {
+  source = "git::github.com/owenJiao/terraform_source.git//elb"
+  secgroup_db_name = format("%s-%s-%s", var.project_name, var.secgroup_db_name,lower(random_string.random.result))
+  rds_instance_name = format("%s-%s-%s", var.project_name, var.rds_instance_name,lower(random_string.random.result))
+  ha_replication_mode = var.ha_replication_mode
+  primary_availability_zone = var.availability_zone
+  standby_availability_zone = var.standby_availability_zone
+  db_type = var.db_type
+  db_version = var.db_version
+  db_password = var.db_password
+  volume_type = var.volume_type
+  volume_size = var.volume_size
+  backup_strategy_start_time = var.backup_strategy_start_time
+  backup_strategy_keep_days = var.backup_strategy_keep_days
+  project_name = var.project_name
+  vpc_id = module.vpc.vpc_id
+  subnet_id = module.vpc.subnet_id
+  rds_flavor = var.rds_flavor
+}
+
