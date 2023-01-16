@@ -371,13 +371,13 @@ variable "ha_replication_mode" {
 
 variable "primary_availability_zone" {
   description = "Primary availability zone"
-  default = "cn-east-3b"
+  default = "cn-east-3a"
   type = string
 }
 
 variable "standby_availability_zone" {
   description = "Standby availability zone"
-  default = "cn-east-3a"
+  default = "cn-east-3b"
   type = string
 }
 
