@@ -130,6 +130,48 @@ variable "rds_ssl_enable" {
   type = bool
 }
 
+variable "rds_sg_rule_direction" {
+  description = "RDS secgroup rule direction"
+  default = "ingress"
+  type = string
+}
+
+variable "rds_sg_rule_action" {
+  description = "RDS secgroup rule action"
+  default = "allow"
+  type = string
+}
+
+variable "rds_sg_rule_ethertype" {
+  description = "RDS secgroup rule ethertype"
+  default = "IPv4"
+  type = string
+}
+
+variable "rds_sg_rule_ports" {
+  description = "RDS secgroup rule ports"
+  default = "5432"
+  type = string
+}
+
+variable "rds_sg_rule_protocol" {
+  description = "RDS secgroup rule protocol"
+  default = "tcp"
+  type = string
+}
+
+variable "rds_sg_rule_priority" {
+  description = "RDS secgroup rule priority"
+  default = 1
+  type = number
+}
+
+variable "rds_sg_rule_remote_ip_prefix" {
+  description = "RDS secgroup rule source ip"
+  default = "0.0.0.0/0"
+  type = string
+}
+
 
 
 

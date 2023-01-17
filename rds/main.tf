@@ -7,10 +7,6 @@ terraform {
   }
 }
 
-resource "huaweicloud_networking_secgroup" "secgroup" {
-  name        = var.secgroup_db_name
-}
-
 data "huaweicloud_vpc_subnets" "subnet" {
   id = var.subnet_id
   # tags {
@@ -63,7 +59,21 @@ data "huaweicloud_rds_flavors" "flavor" {
 #   }
 # }
 
+resource "huaweicloud_networking_secgroup" "secgroup" {
+  name        = var.secgroup_db_name
+  delete_default_rules  = true
+}
 
+resource "huaweicloud_networking_secgroup_rule" "secgroup_rule" {
+  security_group_id       = huaweicloud_networking_secgroup.secgroup.id
+  direction               = var.rds_sg_rule_direction
+  action                  = var.rds_sg_rule_action
+  ethertype               = var.rds_sg_rule_ethertype
+  ports                   = var.rds_sg_rule_ports
+  protocol                = var.rds_sg_rule_protocol
+  priority                = var.rds_sg_rule_priority
+  remote_ip_prefix        = var.rds_sg_rule_remote_ip_prefix
+}
 
 resource "huaweicloud_rds_instance" "instance" {
   name                = var.rds_instance_name

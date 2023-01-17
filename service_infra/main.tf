@@ -142,6 +142,13 @@ module "rds" {
   rds_flavor_group_type =     var.rds_flavor_group_type
   rds_flavor_vcpus =          var.rds_flavor_vcpus
   rds_flavor_memory =         var.rds_flavor_memory
-  rds_ssl_enable =                var.rds_ssl_enable
+  rds_ssl_enable =            var.rds_ssl_enable
+  rds_sg_rule_direction               = var.rds_sg_rule_direction
+  rds_sg_rule_action                  = var.rds_sg_rule_action
+  rds_sg_rule_ethertype               = var.rds_sg_rule_ethertype
+  rds_sg_rule_ports                   = var.rds_sg_rule_ports
+  rds_sg_rule_protocol                = var.rds_sg_rule_protocol
+  rds_sg_rule_priority                = var.rds_sg_rule_priority
+  rds_sg_rule_remote_ip_prefix        = var.rds_sg_rule_remote_ip_prefix
 }
 
