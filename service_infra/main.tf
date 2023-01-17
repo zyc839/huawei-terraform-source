@@ -142,5 +142,6 @@ module "rds" {
   rds_flavor_group_type =     var.rds_flavor_group_type
   rds_flavor_vcpus =          var.rds_flavor_vcpus
   rds_flavor_memory =         var.rds_flavor_memory
+  rds_ssl_enable =                var.rds_ssl_enable
 }
 
