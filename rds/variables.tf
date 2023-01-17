@@ -124,7 +124,11 @@ variable "rds_flavor_memory" {
   type = number
 }
 
-
+variable "rds_ssl_enable" {
+  description = "Rds ssl enable"
+  default = false
+  type = bool
+}
 
 
 
