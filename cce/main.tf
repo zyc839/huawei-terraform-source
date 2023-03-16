@@ -121,11 +121,9 @@ resource "huaweicloud_cce_node_pool" "node_pool" {
 
 
 ## Generate a kubeconfig file
-resource "local_sensitive_file" "kubeconfig" {
+resource "local_file" "kubeconfig" {
   filename = "./kubeconfig.json"
-  content  = <<EOT
-    huaweicloud_cce_cluster.cce_turbo.kube_config_raw   
-  EOT
+  content  = huaweicloud_cce_cluster.cce_turbo.kube_config_raw 
 }
 
 # resource "huaweicloud_cce_node" "node" {
