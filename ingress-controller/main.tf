@@ -9,7 +9,7 @@ terraform {
 
 provider "helm" {
   kubernetes {
-    config_path = "./kubeconfig.json"
+    config_path = "/data/kubeconfig.json"
   }
 }
 
