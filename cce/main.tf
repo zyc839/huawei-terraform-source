@@ -121,10 +121,10 @@ resource "huaweicloud_cce_node_pool" "node_pool" {
 
 
 ## Generate a kubeconfig file
-resource "local_file" "kubeconfig" {
-  filename = "./kubeconfig.json"
-  content  = huaweicloud_cce_cluster.cce_turbo.kube_config_raw 
-}
+# resource "local_file" "kubeconfig" {
+#   filename = "/data/kubeconfig.json"
+#   content  = huaweicloud_cce_cluster.cce_turbo.kube_config_raw 
+# }
 
 # resource "huaweicloud_cce_node" "node" {
 #   count = var.node_count
