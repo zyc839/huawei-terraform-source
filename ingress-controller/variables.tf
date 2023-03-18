@@ -6,7 +6,7 @@ variable "ingress_release_name" {
 variable "ingress_namespace" {
   type        = string
   description = "Name of namespace where nginx controller should be deployed"
-  default     = "public-ingress"
+  default     = "public-nginx"
 }
 
 variable "ingress_chart_version" {
