@@ -21,7 +21,7 @@ locals {
   helm_repository = "https://kubernetes.github.io/ingress-nginx"
 }
 
-resource "helm_release" "nginx-ingress-controller" {
+resource "helm_release" "ingress-controller" {
   name             = var.ingress_release_name
   chart            = local.helm_chart
   namespace        = var.ingress_namespace
