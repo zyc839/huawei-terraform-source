@@ -9,6 +9,9 @@ terraform {
 
 provider "helm" {
   kubernetes {
+    #config_path = "/Users/owenjiao/test/mykubeconfig/kubeconfig.json"
+    #config_path = "~/.kube/config"
+    #config_context = "docker-desktop"
     config_path = "./kubeconfig"
   }
 }
@@ -40,6 +43,56 @@ resource "helm_release" "ingress-controller" {
   set {
     name = "controller.service.loadBalancerIP"
     value = var.ingress_ip_address
+  }
+
+  set {
+    name = "defaultBackend.enabled"
+    value = true
+  }
+
+  set {
+    name = "defaultBackend.image.registry"
+    value = "swr.cn-east-3.myhuaweicloud.com"
+  }
+
+  set {
+    name = "defaultBackend.image.image"
+    value = "hwofficial/defaultbackend"
+  }
+
+  set {
+    name = "defaultBackend.image.tag"
+    value = "1.5"
+  }
+
+  set {
+    name = "controller.admissionWebhooks.enabled"
+    value = false
+  }
+
+  set {
+    name = "controller.image.registry"
+    value = "swr.cn-east-3.myhuaweicloud.com"
+  }
+
+  set {
+    name = "controller.image.image"
+    value = "hwofficial/nginx-ingress"
+  }
+
+  set {
+    name = "controller.image.tag"
+    value = "v1.2.1"
+  }
+
+  set {
+    name = "controller.image.digest"
+    value = ""
+  }
+
+  set {
+    name = "controller.image.digestChroot"
+    value = ""
   }
   
 }

@@ -96,14 +96,14 @@ module "cce" {
 }
 
 
-# module "ingress" {
-#   # depends_on = [
-#   #   module.cce,
-#   #   module.elb
-#   # ]
-#   source = "git::github.com/owenJiao/terraform_source.git//ingress-controller"
-#   ingress_ip_address = module.elb.elb_public_ip
-# }
+module "ingress" {
+   # depends_on = [
+   #   module.cce,
+   #   module.elb
+   # ]
+   source = "git::github.com/owenJiao/terraform_source.git//ingress-controller"
+   ingress_ip_address = module.elb.elb_public_ip
+}
 
 # elb
 module "elb" {
