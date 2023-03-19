@@ -17,7 +17,7 @@ provider "helm" {
 }
 
 locals {
-  helm_chart      = "ingress-nginx"
+  helm_chart      = "ingress-nginx-controller"
   helm_repository = "https://kubernetes.github.io/ingress-nginx"
 }
 
