@@ -7,21 +7,12 @@ terraform {
   }
 }
 
-provider "helm" {
-  kubernetes {
-    #config_path = "/Users/owenjiao/test/mykubeconfig/kubeconfig.json"
-    #config_path = "~/.kube/config"
-    #config_context = "docker-desktop"
-    config_path = "./kubeconfig"
-  }
-}
-
 locals {
   helm_chart      = "ingress-nginx"
   helm_repository = "https://kubernetes.github.io/ingress-nginx"
 }
 
-resource "helm_release" "ingress-nginx-abc" {
+resource "helm_release" "ingress-nginx-def" {
   name             = var.ingress_release_name
   chart            = local.helm_chart
   namespace        = var.ingress_namespace

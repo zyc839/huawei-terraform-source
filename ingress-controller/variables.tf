@@ -1,7 +1,7 @@
 variable "ingress_release_name" {
   type        = string
   description = "Name of helm release"
-  default     = "ingress-nginx-abc"
+  default     = "ingress-nginx-def"
 }
 variable "ingress_namespace" {
   type        = string
