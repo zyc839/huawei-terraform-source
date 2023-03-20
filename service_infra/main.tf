@@ -128,37 +128,37 @@ module "elb" {
 }
 
 
-# rds
-# module "rds" {
-#   source = "git::github.com/owenJiao/terraform_source.git//rds"
-#   secgroup_db_name = format("%s-%s-%s", var.project_name, var.secgroup_db_name,lower(random_string.random.result))
-#   rds_instance_name = format("%s-%s-%s", var.project_name, var.rds_instance_name,lower(random_string.random.result))
-#   ha_replication_mode = var.ha_replication_mode
-#   primary_availability_zone = var.availability_zone
-#   standby_availability_zone = var.standby_availability_zone
-#   db_type = var.db_type
-#   db_version = var.db_version
-#   db_password = var.db_password
-#   volume_type = var.volume_type
-#   volume_size = var.volume_size
-#   backup_strategy_start_time = var.backup_strategy_start_time
-#   backup_strategy_keep_days = var.backup_strategy_keep_days
-#   project_name = var.project_name
-#   vpc_id = module.vpc.vpc_id
-#   subnet_id = module.vpc.subnet_id
-#   rds_flavor_db_type       =  var.rds_flavor_db_type
-#   rds_flavor_db_version    =  var.rds_flavor_db_version
-#   rds_flavor_instance_mode =  var.rds_flavor_instance_mode
-#   rds_flavor_group_type =     var.rds_flavor_group_type
-#   rds_flavor_vcpus =          var.rds_flavor_vcpus
-#   rds_flavor_memory =         var.rds_flavor_memory
-#   rds_ssl_enable =            var.rds_ssl_enable
-#   rds_sg_rule_direction               = var.rds_sg_rule_direction
-#   rds_sg_rule_action                  = var.rds_sg_rule_action
-#   rds_sg_rule_ethertype               = var.rds_sg_rule_ethertype
-#   rds_sg_rule_ports                   = var.rds_sg_rule_ports
-#   rds_sg_rule_protocol                = var.rds_sg_rule_protocol
-#   rds_sg_rule_priority                = var.rds_sg_rule_priority
-#   rds_sg_rule_remote_ip_prefix        = var.rds_sg_rule_remote_ip_prefix
-# }
+#rds
+module "rds" {
+  source = "git::github.com/owenJiao/terraform_source.git//rds"
+  secgroup_db_name = format("%s-%s-%s", var.project_name, var.secgroup_db_name,lower(random_string.random.result))
+  rds_instance_name = format("%s-%s-%s", var.project_name, var.rds_instance_name,lower(random_string.random.result))
+  ha_replication_mode = var.ha_replication_mode
+  primary_availability_zone = var.availability_zone
+  standby_availability_zone = var.standby_availability_zone
+  db_type = var.db_type
+  db_version = var.db_version
+  db_password = var.db_password
+  volume_type = var.volume_type
+  volume_size = var.volume_size
+  backup_strategy_start_time = var.backup_strategy_start_time
+  backup_strategy_keep_days = var.backup_strategy_keep_days
+  project_name = var.project_name
+  vpc_id = module.vpc.vpc_id
+  subnet_id = module.vpc.subnet_id
+  rds_flavor_db_type       =  var.rds_flavor_db_type
+  rds_flavor_db_version    =  var.rds_flavor_db_version
+  rds_flavor_instance_mode =  var.rds_flavor_instance_mode
+  rds_flavor_group_type =     var.rds_flavor_group_type
+  rds_flavor_vcpus =          var.rds_flavor_vcpus
+  rds_flavor_memory =         var.rds_flavor_memory
+  rds_ssl_enable =            var.rds_ssl_enable
+  rds_sg_rule_direction               = var.rds_sg_rule_direction
+  rds_sg_rule_action                  = var.rds_sg_rule_action
+  rds_sg_rule_ethertype               = var.rds_sg_rule_ethertype
+  rds_sg_rule_ports                   = var.rds_sg_rule_ports
+  rds_sg_rule_protocol                = var.rds_sg_rule_protocol
+  rds_sg_rule_priority                = var.rds_sg_rule_priority
+  rds_sg_rule_remote_ip_prefix        = var.rds_sg_rule_remote_ip_prefix
+}
 
