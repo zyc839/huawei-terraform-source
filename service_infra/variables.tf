@@ -565,10 +565,7 @@ variable "ingress_timeout" {
   default     = 300
 }
 
-variable "elb_id" {
-  type        = string
-  description = "Elb id"
-}
+
 
 
 
