@@ -1,7 +1,7 @@
 variable "ingress_release_name" {
   type        = string
   description = "Name of helm release"
-  default     = "ingress-nginx-def"
+  default     = "ingress-nginx"
 }
 variable "ingress_namespace" {
   type        = string
@@ -30,7 +30,7 @@ variable "ingress_class_is_default" {
 variable "ingress_ip_address" {
   type        = string
   description = "External Static Address for loadbalancer (Doesn't work with AWS)"
-  default     = "192.9.9.9"
+
 }
 
 variable "ingress_create_namespace" {

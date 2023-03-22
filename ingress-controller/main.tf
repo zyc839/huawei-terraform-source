@@ -14,14 +14,14 @@ locals {
 
 # provider "helm" {
 #   kubernetes {
-#     #config_path = "/Users/owenjiao/test/mykubeconfig/kubeconfig.json"
-#     config_path = "~/.kube/config"
-#     config_context = "docker-desktop"
+#     config_path = "/Users/owenjiao/test/mykubeconfig/kubeconfig.json"
+#     #config_path = "~/.kube/config"
+#     #config_context = "docker-desktop"
 #     #config_path = "./kubeconfig"
 #   }
 # }
 
-resource "helm_release" "ingress-nginx-def" {
+resource "helm_release" "ingress-nginx" {
   name             = var.ingress_release_name
   chart            = local.helm_chart
   namespace        = var.ingress_namespace
