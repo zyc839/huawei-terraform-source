@@ -50,3 +50,9 @@ variable "ingress_timeout" {
   description = "Time in seconds to wait for any individual kubernetes operation"
   default     = 300
 }
+
+variable "elb_id" {
+  type        = string
+  description = "Elb id"
+}
+

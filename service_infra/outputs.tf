@@ -18,4 +18,9 @@ output "rds_public_ips" {
    description = "RDS pubic ip"
 }
 
+output "elb_info" {
+   value = module.elb
+   description = "Elb info"
+}
+
 

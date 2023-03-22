@@ -12,6 +12,15 @@ locals {
   helm_repository = "https://kubernetes.github.io/ingress-nginx"
 }
 
+# provider "helm" {
+#   kubernetes {
+#     #config_path = "/Users/owenjiao/test/mykubeconfig/kubeconfig.json"
+#     config_path = "~/.kube/config"
+#     config_context = "docker-desktop"
+#     #config_path = "./kubeconfig"
+#   }
+# }
+
 resource "helm_release" "ingress-nginx-def" {
   name             = var.ingress_release_name
   chart            = local.helm_chart
@@ -26,6 +35,7 @@ resource "helm_release" "ingress-nginx-def" {
     name  = "controller.ingressClassResource.name"
     value = var.ingress_class_name
   }
+
   set {
     name  = "controller.ingressClassResource.default"
     value = var.ingress_class_is_default
@@ -84,6 +94,16 @@ resource "helm_release" "ingress-nginx-def" {
   set {
     name = "controller.image.digestChroot"
     value = ""
+  }
+
+  set {
+    name = "controller.service.annotations.kubernetes\\.io/elb\\.id"
+    value = var.elb_id
+  }
+
+  set {
+    name = "controller.service.annotations.kubernetes\\.io/elb\\.class"
+    value = "performance"
   }
   
 }

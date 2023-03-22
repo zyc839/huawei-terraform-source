@@ -112,6 +112,7 @@ module "ingress" {
      ]
     source = "git::github.com/owenJiao/terraform_source.git//ingress-controller"
     ingress_ip_address = module.elb.elb_public_ip
+    elb_id = module.elb.id
 }
 
 # elb
