@@ -106,16 +106,16 @@ module "cce" {
   # nodepool_memory_size       = var.nodepool_memory_size
 }
 
-
- module "ingress" {
-      depends_on = [
-        module.cce,
-        module.elb
-      ]
-     source = "git::github.com/owenJiao/terraform_source.git//ingress-controller"
-     ingress_ip_address = module.elb.elb_public_ip
-     elb_id = module.elb.elb_id
- }
+# ingress
+module "ingress" {
+    depends_on = [
+      module.cce,
+      module.elb
+    ]
+   source = "git::github.com/owenJiao/terraform_source.git//ingress-controller"
+   ingress_ip_address = module.elb.elb_public_ip
+   elb_id = module.elb.elb_id
+}
 
 # elb
 module "elb" {
