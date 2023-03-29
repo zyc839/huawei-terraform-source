@@ -107,7 +107,7 @@ module "cce" {
 }
 
 # ingress
-#module "ingress" {
+# module "ingress" {
 #    depends_on = [
 #      module.cce,
 #      module.elb
@@ -115,7 +115,7 @@ module "cce" {
 #   source = "git::github.com/zyc839/huawei-terraform-source.git//ingress-controller"
 #   ingress_ip_address = module.elb.elb_public_ip
 #   elb_id = module.elb.elb_id
-#}
+# }
 
 # elb
 module "elb" {
