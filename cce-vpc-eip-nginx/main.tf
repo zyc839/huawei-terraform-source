@@ -31,7 +31,7 @@ resource "random_string" "random" {
 # eip
 module "eip" {
    count = local.eip_count
-   source = "git::github.com/owenJiao/terraform_source.git//eip"
+   source = "git::github.com/zyc839/huawei-terraform-source.git//eip"
    eip_name = format("%s-%s-%s-%s", var.project_name, var.eip_name,lower(random_string.random.result),count.index)
    eip_type = var.eip_type
    bandwidth_name = format("%s-%s-%s", var.project_name, var.bandwidth_name,lower(random_string.random.result))
@@ -40,7 +40,7 @@ module "eip" {
 
 # nat
 module "nat" {
-  source = "git::github.com/owenJiao/terraform_source.git//nat"
+  source = "git::github.com/zyc839/huawei-terraform-source.git//nat"
   gw_name = format("%s-%s-%s", var.project_name, var.gw_name,lower(random_string.random.result))
   gw_type = var.gw_type
   publicip_id = module.eip[0].id
@@ -50,7 +50,7 @@ module "nat" {
 
 # vpc
 module "vpc" {
-  source = "git::github.com/owenJiao/terraform_source.git//vpc"
+  source = "git::github.com/zyc839/huawei-terraform-source.git//vpc"
   vpc_name = format("%s-%s-%s", var.project_name, var.vpc_name,lower(random_string.random.result))
   vpc_cidr = var.vpc_cidr
   subnet_name = format("%s-%s-%s", var.project_name, var.subnet_name,lower(random_string.random.result))
@@ -71,7 +71,7 @@ module "vpc" {
 
 # cce
 module "cce" {
-  source = "git::github.com/owenJiao/terraform_source.git//cce"
+  source = "git::github.com/zyc839/huawei-terraform-source.git//cce"
   cluster_name = format("%s-%s-%s", var.project_name, var.cluster_name,lower(random_string.random.result))
   flavor_id = var.flavor_id
   vpc_id   = module.vpc.vpc_id
@@ -107,19 +107,19 @@ module "cce" {
 }
 
 # ingress
-module "ingress" {
-    depends_on = [
-      module.cce,
-      module.elb
-    ]
-   source = "git::github.com/owenJiao/terraform_source.git//ingress-controller"
-   ingress_ip_address = module.elb.elb_public_ip
-   elb_id = module.elb.elb_id
-}
+#module "ingress" {
+#    depends_on = [
+#      module.cce,
+#      module.elb
+#    ]
+#   source = "git::github.com/zyc839/huawei-terraform-source.git//ingress-controller"
+#   ingress_ip_address = module.elb.elb_public_ip
+#   elb_id = module.elb.elb_id
+#}
 
 # elb
 module "elb" {
-  source = "git::github.com/owenJiao/terraform_source.git//elb"
+  source = "git::github.com/zyc839/huawei-terraform-source.git//elb"
   l7_type            =  var.l7_type
   l7_max_connections =  var.l7_max_connections
   l7_cps             =  var.l7_cps
