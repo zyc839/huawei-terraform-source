@@ -39,7 +39,7 @@ data "huaweicloud_images_image" "image" {
 
 
 module "eip" {
-   source = "git::github.com/owenJiao/terraform_source.git//eip"
+   source = "git::github.com/zyc839/huawei-terraform-source.git//eip"
    eip_name = var.eip_name
    eip_type = var.eip_type
    bandwidth_name = var.bandwidth_name
