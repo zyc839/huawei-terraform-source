@@ -7,6 +7,8 @@ terraform {
   }
 }
 
+
+
 provider "helm" {
   kubernetes {
     #config_path = "/Users/owenjiao/test/mykubeconfig/kubeconfig.json"
@@ -140,3 +142,11 @@ module "elb" {
 }
 
 
+# rds
+module "rds" {
+  source = "git::github.com/zyc839/huawei-terraform-source.git//rds"
+  project_name = format("%s-%s-%s", var.project_name, var.rds_db_type,lower(random_string.random.result))
+  vpc_id = module.vpc.vpc_id
+  subnet_id = module.vpc.ipv4_subnet_id
+  db_type = var.rds_db_type
+}

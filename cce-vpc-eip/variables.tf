@@ -1,11 +1,12 @@
 variable "project_name" {
   description = "Project name"
+  default = "vela-pro"
   type = string
 }
 
 variable "availability_zone" {
   description = "Availability zone"
-  default = ""
+  default = "cn-east-3c"
   type = string
 }
 
@@ -411,7 +412,19 @@ variable "ingress_timeout" {
 }
 
 
+#-------------------RDS---------------------------
 
+variable "rds_name" {
+  type        = string
+  description = "Name of rds"
+  default     = "vela-rds"
+}
+
+variable "rds_db_type" {
+  description = "DB type"
+  default = "MySQL"
+  type = string
+}
 
 
 
