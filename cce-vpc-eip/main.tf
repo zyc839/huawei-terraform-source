@@ -149,4 +149,5 @@ module "rds" {
   vpc_id = module.vpc.vpc_id
   subnet_id = module.vpc.ipv4_subnet_id
   db_type = var.rds_db_type
+  db_version = var.rds_db_version
 }

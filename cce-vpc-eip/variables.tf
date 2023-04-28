@@ -426,6 +426,11 @@ variable "rds_db_type" {
   type = string
 }
 
+variable "rds_db_version" {
+  description = "DB version"
+  default = "5.7"
+  type = string
+}
 
 
 
