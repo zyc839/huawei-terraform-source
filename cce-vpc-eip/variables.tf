@@ -414,23 +414,23 @@ variable "ingress_timeout" {
 
 #-------------------RDS---------------------------
 
-variable "rds_name" {
-  type        = string
-  description = "Name of rds"
-  default     = "vela-rds"
-}
-
-variable "rds_db_type" {
-  description = "DB type"
-  default = "MySQL"
-  type = string
-}
-
-variable "rds_db_version" {
-  description = "DB version"
-  default = "5.7"
-  type = string
-}
+#variable "rds_name" {
+#  type        = string
+#  description = "Name of rds"
+#  default     = "vela-rds"
+#}
+#
+#variable "rds_db_type" {
+#  description = "DB type"
+#  default = "MySQL"
+#  type = string
+#}
+#
+#variable "rds_db_version" {
+#  description = "DB version"
+#  default = "5.7"
+#  type = string
+#}
 
 
 

@@ -88,13 +88,13 @@ variable "subnet_id" {
 
 variable "rds_flavor_db_type" {
   description = "Rds flavor db type"
-  default = "PostgreSQL"
+  default = "MySQL"
   type = string
 }
 
 variable "rds_flavor_db_version" {
   description = "Rds flavor db version"
-  default = "13"
+  default = "5.7"
   type = string
 }
 
