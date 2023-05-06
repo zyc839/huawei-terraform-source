@@ -7,6 +7,7 @@ terraform {
   }
 }
 
+
 data "huaweicloud_vpc_subnets" "subnet" {
   id = var.subnet_id
   # tags {

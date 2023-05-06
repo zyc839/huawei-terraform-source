@@ -31,13 +31,13 @@ variable "standby_availability_zone" {
 
 variable "db_type" {
   description = "DB type"
-  default = "PostgreSQL"
+  default = "MySQL"
   type = string
 }
 
 variable "db_version" {
   description = "DB version"
-  default = "13"
+  default = "5.7"
   type = string
 }
 
@@ -73,16 +73,19 @@ variable "backup_strategy_keep_days" {
 
 variable "project_name" {
   description = "Project name"
+  default = "vela-mysql"
   type = string
 }
 
 variable "vpc_id" {
   description = "vpc id"
+  default = "76cc6654-c28b-4978-a6ba-2d54a90d8491"
   type = string
 }
 
 variable "subnet_id" {
   description = "Subnet id"
+  default = "8dd09697-f5c4-4182-b30b-3a688e939003"
   type = string
 }
 
