@@ -414,7 +414,7 @@ variable "ingress_timeout" {
 
 #-------------------RDS---------------------------
 
-variable "rds_name" {
+variable "rds_instance_name" {
   type        = string
   description = "Name of rds"
   default     = "vela-rds"
@@ -432,7 +432,25 @@ variable "rds_db_version" {
   type = string
 }
 
+variable "rds_sg_rule_ports" {
+  description = "RDS secgroup rule ports"
+  default = "3306"
+  type = string
+}
 
+
+variable "rds_flavor_vcpus" {
+  description = "Rds flavor vcpus"
+  default = 2
+  type = number
+}
+
+
+variable "rds_flavor_memory" {
+  description = "Rds flavor memory"
+  default = 4
+  type = number
+}
 
 
 
