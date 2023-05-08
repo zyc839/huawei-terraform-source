@@ -8,15 +8,6 @@ terraform {
 }
 
 
-provider "helm" {
-  kubernetes {
-    #config_path = "/Users/owenjiao/test/mykubeconfig/kubeconfig.json"
-    #config_path = "~/.kube/config"
-    #config_context = "docker-desktop"
-    config_path = "./kubeconfig"
-  }
-}
-
 locals {
   instance_name     = "k8s-node"
   kube_proxy_mode   = "ipvs"
