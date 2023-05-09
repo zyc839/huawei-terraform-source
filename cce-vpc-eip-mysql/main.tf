@@ -7,8 +7,6 @@ terraform {
   }
 }
 
-
-
 locals {
   instance_name     = "k8s-node"
   kube_proxy_mode   = "ipvs"

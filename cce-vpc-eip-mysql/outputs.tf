@@ -15,3 +15,12 @@ output "elb_info" {
 }
 
 
+output "rds_private_ips" {
+  value = module.rds.private_ips
+  description = "instance private_ips"
+}
+
+output "rds_public_ips" {
+  value = module.rds.public_ips
+  description = "instance public_ips"
+}
