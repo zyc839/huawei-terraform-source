@@ -21,6 +21,6 @@ output "rds_private_ips" {
 }
 
 output "rds_public_ips" {
-  value = module.rds.public_ips
+  value = module.eip[2].address
   description = "instance public_ips"
 }
