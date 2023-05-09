@@ -107,3 +107,14 @@ resource "huaweicloud_rds_instance" "instance" {
   }
 
 }
+
+# get the port of rds instance by private_ip
+data "huaweicloud_networking_port" "rds_port" {
+  network_id = var.subnet_id
+  fixed_ip   = huaweicloud_rds_instance.instance.private_ips[0]
+}
+
+resource "huaweicloud_vpc_eip_associate" "associated" {
+  public_ip = var.eip_address
+  port_id   = data.huaweicloud_networking_port.rds_port.id
+}

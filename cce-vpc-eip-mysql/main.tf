@@ -8,10 +8,11 @@ terraform {
 }
 
 
+
 locals {
   instance_name     = "k8s-node"
   kube_proxy_mode   = "ipvs"
-  eip_count = 2
+  eip_count = 3
 }
 
 resource "random_string" "random" {
@@ -131,7 +132,6 @@ module "elb" {
   bandwidth_size        = var.bandwidth_size
 }
 
-
 # rds
 module "rds" {
   source       = "git::github.com/zyc839/huawei-terraform-source.git//rds"
@@ -144,6 +144,7 @@ module "rds" {
   rds_sg_rule_ports = var.rds_sg_rule_ports
   rds_flavor_vcpus  = var.rds_flavor_vcpus
   rds_flavor_memory = var.rds_flavor_memory
+  eip_address = module.eip[2].address
 }
 
 
