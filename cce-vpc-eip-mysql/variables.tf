@@ -453,6 +453,13 @@ variable "rds_flavor_memory" {
 }
 
 
+variable "rds_switch" {
+  description = "Rds switch"
+  default = false
+  type = bool
+}
+
+
 
 
 

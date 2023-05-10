@@ -10,7 +10,7 @@ terraform {
 locals {
   instance_name     = "k8s-node"
   kube_proxy_mode   = "ipvs"
-  eip_count = 3
+  eip_count = var.rds_switch?3:2
 }
 
 resource "random_string" "random" {
@@ -132,6 +132,7 @@ module "elb" {
 
 # rds
 module "rds" {
+  count = var.rds_switch?1:0
   source       = "git::github.com/zyc839/huawei-terraform-source.git//rds"
   project_name = format("%s-%s-%s", var.project_name, var.rds_db_type, lower(random_string.random.result))
   vpc_id       = module.vpc.vpc_id
