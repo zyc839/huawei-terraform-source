@@ -1,6 +1,5 @@
 variable "project_name" {
   description = "Project name"
-  default = "vela-pro"
   type = string
 }
 
@@ -455,7 +454,6 @@ variable "rds_flavor_memory" {
 
 variable "rds_switch" {
   description = "Rds switch"
-  default = false
   type = bool
 }
 
