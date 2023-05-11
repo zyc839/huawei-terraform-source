@@ -457,17 +457,6 @@ variable "rds_switch" {
   type = bool
 }
 
-variable "rds_options" {
-  type = list(object({
-    name    = string
-    enabled = optional(bool, true)
-    website = optional(object({
-      index_document = optional(string, "index.html")
-      error_document = optional(string, "error.html")
-      routing_rules  = optional(string)
-    }), {})
-  }))
-}
 
 
 
