@@ -97,16 +97,6 @@ module "cce" {
   # nodepool_memory_size       = var.nodepool_memory_size
 }
 
-# ingress
-# module "ingress" {
-#    depends_on = [
-#      module.cce,
-#      module.elb
-#    ]
-#   source = "git::github.com/zyc839/huawei-terraform-source.git//ingress-controller"
-#   ingress_ip_address = module.elb.elb_public_ip
-#   elb_id = module.elb.elb_id
-# }
 
 # elb
 module "elb" {
@@ -132,7 +122,7 @@ module "elb" {
 
 # rds
 module "rds" {
-  count = var.rds_db_type?1:0
+  count = var.rds_switch?1:0
   source       = "git::github.com/zyc839/huawei-terraform-source.git//rds"
   project_name = format("%s-%s-%s", var.project_name, var.rds_db_type, lower(random_string.random.result))
   vpc_id       = module.vpc.vpc_id
@@ -143,7 +133,7 @@ module "rds" {
   rds_sg_rule_ports = var.rds_sg_rule_ports
   rds_flavor_vcpus  = var.rds_flavor_vcpus
   rds_flavor_memory = var.rds_flavor_memory
-  eip_address = module.eip[2].address
+#  eip_address = module.eip[2].address
 }
 
 
