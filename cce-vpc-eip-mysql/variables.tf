@@ -457,6 +457,20 @@ variable "rds_switch" {
   type = bool
 }
 
+variable "rds_options" {
+  type = list(object({
+    name   = string
+    switch = bool
+  }))
+  default = [
+    {
+      name   = "vela"
+      switch = false
+    }
+  ]
+}
+
+
 
 
 
