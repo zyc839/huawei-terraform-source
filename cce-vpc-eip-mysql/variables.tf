@@ -458,16 +458,11 @@ variable "rds_switch" {
 }
 
 variable "rds_options" {
-  type = list(object({
-    name   = string
-    switch = bool
-  }))
-  default = [
-    {
-      name   = "vela"
-      switch = false
-    }
-  ]
+  type = object({
+    a = string                # a required attribute
+    b = optional(string)      # an optional attribute
+    c = optional(number, 127) # an optional attribute with default value
+  })
 }
 
 
