@@ -457,6 +457,11 @@ variable "rds_switch" {
   type = bool
 }
 
+variable "rds" {
+  type = list(object({
+    rds_db_type = string
+  }),{})
+}
 
 
 
