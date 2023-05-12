@@ -7,11 +7,13 @@ terraform {
   }
 }
 
+
+
 locals {
   instance_name     = "k8s-node"
   kube_proxy_mode   = "ipvs"
   eip_count = 2
-  is_rds_empty = length(values(var.rds_options))
+  is_rds_empty = var.rds_options!=null?true:false
 }
 
 resource "random_string" "random" {
@@ -123,7 +125,7 @@ module "elb" {
 
 # rds
 module "rds" {
-  count = local.is_rds_empty>0?1:0
+  count = local.is_rds_empty?1:0
   source       = "git::github.com/zyc839/huawei-terraform-source.git//rds"
   project_name = format("%s-%s-%s", var.project_name, var.rds_options.rds_db_type, lower(random_string.random.result))
   vpc_id       = module.vpc.vpc_id
