@@ -451,11 +451,14 @@ variable "ingress_timeout" {
 #  type = number
 #}
 
-
+variable "rds_switch" {
+  type = bool
+  default = false
+  description = "rds switch"
+}
 
 variable "rds_options" {
   type = object({
-    rds_switch = bool
     rds_instance_name = string
     rds_db_type   = string
     rds_db_version = string
@@ -464,7 +467,6 @@ variable "rds_options" {
     rds_flavor_memory = number
   })
   default = {
-    rds_switch = false
     rds_instance_name = "vela-rds"
     rds_db_type   = "MySQL"
     rds_db_version = "5.7"
