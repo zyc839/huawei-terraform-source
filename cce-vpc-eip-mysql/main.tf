@@ -22,7 +22,7 @@ resource "random_string" "random" {
 # eip
 module "eip" {
    count = local.eip_count
-   source = "git::github.com/zyc839/huawei-terraform-source.git//eip"
+   source = "git::github.com/zyc839/huawei-terraform-source.git?ref=v0.0.1//eip"
    eip_name = format("%s-%s-%s-%s", var.project_name, var.eip_name,lower(random_string.random.result),count.index)
    eip_type = var.eip_type
    bandwidth_name = format("%s-%s-%s", var.project_name, var.bandwidth_name,lower(random_string.random.result))
@@ -31,7 +31,7 @@ module "eip" {
 
 # nat
 module "nat" {
-  source = "git::github.com/zyc839/huawei-terraform-source.git//nat"
+  source = "git::github.com/zyc839/huawei-terraform-source.git?ref=v0.0.1//nat"
   gw_name = format("%s-%s-%s", var.project_name, var.gw_name,lower(random_string.random.result))
   gw_type = var.gw_type
   publicip_id = module.eip[0].id
@@ -41,7 +41,7 @@ module "nat" {
 
 # vpc
 module "vpc" {
-  source = "git::github.com/zyc839/huawei-terraform-source.git//vpc"
+  source = "git::github.com/zyc839/huawei-terraform-source.git?ref=v0.0.1//vpc"
   vpc_name = format("%s-%s-%s", var.project_name, var.vpc_name,lower(random_string.random.result))
   vpc_cidr = var.vpc_cidr
   subnet_name = format("%s-%s-%s", var.project_name, var.subnet_name,lower(random_string.random.result))
@@ -62,7 +62,7 @@ module "vpc" {
 
 # cce
 module "cce" {
-  source = "git::github.com/zyc839/huawei-terraform-source.git//cce"
+  source = "git::github.com/zyc839/huawei-terraform-source.git?ref=v0.0.1//cce"
   cluster_name = format("%s-%s-%s", var.project_name, var.cluster_name,lower(random_string.random.result))
   flavor_id = var.flavor_id
   vpc_id   = module.vpc.vpc_id
@@ -100,7 +100,7 @@ module "cce" {
 
 # elb
 module "elb" {
-  source = "git::github.com/zyc839/huawei-terraform-source.git//elb"
+  source = "git::github.com/zyc839/huawei-terraform-source.git?ref=v0.0.1//elb"
   l7_type            =  var.l7_type
   l7_max_connections =  var.l7_max_connections
   l7_cps             =  var.l7_cps
@@ -123,7 +123,7 @@ module "elb" {
 # rds
 module "rds" {
   count = var.rds_switch?1:0
-  source       = "git::github.com/zyc839/huawei-terraform-source.git//rds"
+  source       = "git::github.com/zyc839/huawei-terraform-source.git?ref=v0.0.1//rds"
   project_name = format("%s-%s-%s", var.project_name, var.rds_db_type, lower(random_string.random.result))
   vpc_id       = module.vpc.vpc_id
   subnet_id    = module.vpc.subnet_id
