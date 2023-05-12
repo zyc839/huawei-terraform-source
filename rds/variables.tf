@@ -175,10 +175,10 @@ variable "rds_sg_rule_remote_ip_prefix" {
   type = string
 }
 
-variable "eip_address" {
-  description = "Eip address"
-  type = string
-}
+#variable "eip_address" {
+#  description = "Eip address"
+#  type = string
+#}
 
 
 
