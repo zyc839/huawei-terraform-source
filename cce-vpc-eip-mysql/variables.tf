@@ -457,6 +457,17 @@ variable "rds_switch" {
   type = bool
 }
 
+variable "rds" {
+  type = object({
+    rds_instance_type = string
+    rds_engine_type   = string
+  })
+  default = {
+    rds_instance_type = "db.t2.micro"
+    rds_engine_type   = "mysql"
+  }
+}
+
 
 
 
