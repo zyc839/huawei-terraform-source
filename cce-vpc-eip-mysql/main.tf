@@ -11,6 +11,7 @@ locals {
   instance_name     = "k8s-node"
   kube_proxy_mode   = "ipvs"
   eip_count = 2
+  is_rds_empty = length(values(var.rds_options)) == 0
 }
 
 resource "random_string" "random" {
@@ -22,7 +23,7 @@ resource "random_string" "random" {
 # eip
 module "eip" {
    count = local.eip_count
-   source = "git::github.com/zyc839/huawei-terraform-source.git?ref=v0.0.1//eip"
+   source = "git::github.com/zyc839/huawei-terraform-source.git//eip"
    eip_name = format("%s-%s-%s-%s", var.project_name, var.eip_name,lower(random_string.random.result),count.index)
    eip_type = var.eip_type
    bandwidth_name = format("%s-%s-%s", var.project_name, var.bandwidth_name,lower(random_string.random.result))
@@ -31,7 +32,7 @@ module "eip" {
 
 # nat
 module "nat" {
-  source = "git::github.com/zyc839/huawei-terraform-source.git?ref=v0.0.1//nat"
+  source = "git::github.com/zyc839/huawei-terraform-source.git//nat"
   gw_name = format("%s-%s-%s", var.project_name, var.gw_name,lower(random_string.random.result))
   gw_type = var.gw_type
   publicip_id = module.eip[0].id
@@ -41,7 +42,7 @@ module "nat" {
 
 # vpc
 module "vpc" {
-  source = "git::github.com/zyc839/huawei-terraform-source.git?ref=v0.0.1//vpc"
+  source = "git::github.com/zyc839/huawei-terraform-source.git//vpc"
   vpc_name = format("%s-%s-%s", var.project_name, var.vpc_name,lower(random_string.random.result))
   vpc_cidr = var.vpc_cidr
   subnet_name = format("%s-%s-%s", var.project_name, var.subnet_name,lower(random_string.random.result))
@@ -62,7 +63,7 @@ module "vpc" {
 
 # cce
 module "cce" {
-  source = "git::github.com/zyc839/huawei-terraform-source.git?ref=v0.0.1//cce"
+  source = "git::github.com/zyc839/huawei-terraform-source.git//cce"
   cluster_name = format("%s-%s-%s", var.project_name, var.cluster_name,lower(random_string.random.result))
   flavor_id = var.flavor_id
   vpc_id   = module.vpc.vpc_id
@@ -100,7 +101,7 @@ module "cce" {
 
 # elb
 module "elb" {
-  source = "git::github.com/zyc839/huawei-terraform-source.git?ref=v0.0.1//elb"
+  source = "git::github.com/zyc839/huawei-terraform-source.git//elb"
   l7_type            =  var.l7_type
   l7_max_connections =  var.l7_max_connections
   l7_cps             =  var.l7_cps
@@ -122,17 +123,17 @@ module "elb" {
 
 # rds
 module "rds" {
-  count = var.rds_switch?1:0
-  source       = "git::github.com/zyc839/huawei-terraform-source.git?ref=v0.0.1//rds"
-  project_name = format("%s-%s-%s", var.project_name, var.rds_db_type, lower(random_string.random.result))
+  count = local.is_rds_empty?1:0
+  source       = "git::github.com/zyc839/huawei-terraform-source.git//rds"
+  project_name = format("%s-%s-%s", var.project_name, var.rds_options.rds_db_type, lower(random_string.random.result))
   vpc_id       = module.vpc.vpc_id
   subnet_id    = module.vpc.subnet_id
-  db_type      = var.rds_db_type
-  db_version   = var.rds_db_version
-  rds_instance_name = var.rds_instance_name
-  rds_sg_rule_ports = var.rds_sg_rule_ports
-  rds_flavor_vcpus  = var.rds_flavor_vcpus
-  rds_flavor_memory = var.rds_flavor_memory
+  db_type      = var.rds_options.rds_db_type
+  db_version   = var.rds_options.rds_db_version
+  rds_instance_name = var.rds_options.rds_instance_name
+  rds_sg_rule_ports = var.rds_options.rds_sg_rule_ports
+  rds_flavor_vcpus  = var.rds_options.rds_flavor_vcpus
+  rds_flavor_memory = var.rds_options.rds_flavor_memory
 #  eip_address = module.eip[2].address
 }
 
