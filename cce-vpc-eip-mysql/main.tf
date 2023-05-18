@@ -124,7 +124,7 @@ module "elb" {
 
 # rds
 module "rds" {
-  count = var.rds_switch?1:0
+  count = var.rds_options.rds_switch?1:0
   source       = "git::github.com/zyc839/huawei-terraform-source.git//rds"
   project_name = format("%s-%s-%s", var.project_name, var.rds_options.rds_db_type, lower(random_string.random.result))
   vpc_id       = module.vpc.vpc_id

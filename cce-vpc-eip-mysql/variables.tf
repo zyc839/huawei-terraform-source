@@ -451,11 +451,11 @@ variable "ingress_timeout" {
 #  type = number
 #}
 
-variable "rds_switch" {
-  type = bool
-  default = false
-  description = "rds switch"
-}
+#variable "rds_switch" {
+#  type = bool
+#  default = false
+#  description = "rds switch"
+#}
 
 variable "rds_options" {
   type = object({
@@ -465,6 +465,7 @@ variable "rds_options" {
     rds_sg_rule_ports = string
     rds_flavor_vcpus = number
     rds_flavor_memory = number
+    rds_switch = bool
   })
   default = {
     rds_instance_name = "vela-rds"
@@ -473,6 +474,7 @@ variable "rds_options" {
     rds_sg_rule_ports = "3306"
     rds_flavor_vcpus = 2
     rds_flavor_memory = 4
+    rds_switch = false
   }
 }
 
