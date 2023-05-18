@@ -467,6 +467,7 @@ variable "rds_options" {
     rds_flavor_memory = number
     rds_switch = bool
   })
+  Properties = object({rds_instance_name_test = string})
   default = {
     rds_instance_name = "vela-rds"
     rds_db_type   = "MySQL"
