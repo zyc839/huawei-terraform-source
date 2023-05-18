@@ -479,15 +479,6 @@ variable "rds_options" {
   }
 }
 
-variable "docker_ports" {
-  type = "map"
-  default = {
-    "internal" = "8300"
-    "external" = "8300"
-    "protocol" = "tcp"
-  }
-}
-
 
 
 
