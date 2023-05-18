@@ -467,7 +467,6 @@ variable "rds_options" {
     rds_flavor_memory = number
     rds_switch = bool
   })
-  Properties = object({rds_instance_name_test = string})
   default = {
     rds_instance_name = "vela-rds"
     rds_db_type   = "MySQL"
@@ -477,6 +476,22 @@ variable "rds_options" {
     rds_flavor_memory = 4
     rds_switch = false
   }
+}
+
+variable "docker_ports" {
+  type = list(object({
+    internal = number
+    external = number
+    protocol = string
+  }))
+  default = [
+    {
+      internal = 8300
+      external = 8300
+      protocol = "tcp"
+    }
+  ]
+  Properties = object({rds_instance_name_test = string})
 }
 
 
