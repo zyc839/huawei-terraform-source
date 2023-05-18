@@ -459,39 +459,34 @@ variable "ingress_timeout" {
 
 variable "rds_options" {
   type = object({
+    rds_switch = bool
     rds_instance_name = string
     rds_db_type   = string
     rds_db_version = string
     rds_sg_rule_ports = string
     rds_flavor_vcpus = number
     rds_flavor_memory = number
-    rds_switch = bool
   })
   default = {
+    rds_switch = false
     rds_instance_name = "vela-rds"
     rds_db_type   = "MySQL"
     rds_db_version = "5.7"
     rds_sg_rule_ports = "3306"
     rds_flavor_vcpus = 2
     rds_flavor_memory = 4
-    rds_switch = false
+
   }
 }
 
 variable "docker_ports" {
-  type = list(object({
-    internal = number
-    external = number
-    protocol = string
-  }))
-  default = [
+  type = "map"
+  default =
     {
       internal = 8300
       external = 8300
       protocol = "tcp"
     }
-  ]
-  Properties = object({rds_instance_name_test = string})
 }
 
 
