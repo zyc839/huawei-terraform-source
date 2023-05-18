@@ -413,71 +413,71 @@ variable "ingress_timeout" {
 
 #-------------------RDS---------------------------
 
-#variable "rds_instance_name" {
-#  type        = string
-#  description = "Name of rds"
-#  default     = "vela-rds"
-#}
-#
-#variable "rds_db_type" {
-#  description = "DB type"
-#  default = "MySQL"
-#  type = string
-#}
-#
-#variable "rds_db_version" {
-#  description = "DB version"
-#  default = "5.7"
-#  type = string
-#}
-#
-#variable "rds_sg_rule_ports" {
-#  description = "RDS secgroup rule ports"
-#  default = "3306"
-#  type = string
-#}
-#
-#
-#variable "rds_flavor_vcpus" {
-#  description = "Rds flavor vcpus"
-#  default = 2
-#  type = number
-#}
-#
-#
-#variable "rds_flavor_memory" {
-#  description = "Rds flavor memory"
-#  default = 4
-#  type = number
-#}
-
-#variable "rds_switch" {
-#  type = bool
-#  default = false
-#  description = "rds switch"
-#}
-
-variable "rds_options" {
-  type = object({
-    rds_switch = bool
-    rds_instance_name = string
-    rds_db_type   = string
-    rds_db_version = string
-    rds_sg_rule_ports = string
-    rds_flavor_vcpus = number
-    rds_flavor_memory = number
-  })
-  default = {
-    rds_switch = false
-    rds_instance_name = "vela-rds"
-    rds_db_type   = "MySQL"
-    rds_db_version = "5.7"
-    rds_sg_rule_ports = "3306"
-    rds_flavor_vcpus = 2
-    rds_flavor_memory = 4
-
-  }
+variable "rds_instance_name" {
+  type        = string
+  description = "Name of rds"
+  default     = "vela-rds"
 }
+
+variable "rds_db_type" {
+  description = "DB type"
+  default = "MySQL"
+  type = string
+}
+
+variable "rds_db_version" {
+  description = "DB version"
+  default = "5.7"
+  type = string
+}
+
+variable "rds_sg_rule_ports" {
+  description = "RDS secgroup rule ports"
+  default = "3306"
+  type = string
+}
+
+
+variable "rds_flavor_vcpus" {
+  description = "Rds flavor vcpus"
+  default = 2
+  type = number
+}
+
+
+variable "rds_flavor_memory" {
+  description = "Rds flavor memory"
+  default = 4
+  type = number
+}
+
+variable "rds_switch" {
+  type = bool
+  default = false
+  description = "rds switch"
+}
+
+#variable "rds_options" {
+#  type = object({
+#    rds_switch = bool
+#    rds_instance_name = string
+#    rds_db_type   = string
+#    rds_db_version = string
+#    rds_sg_rule_ports = string
+#    rds_flavor_vcpus = number
+#    rds_flavor_memory = number
+#  })
+#  default = {
+#    rds_switch = false
+#    rds_instance_name = "vela-rds"
+#    rds_db_type   = "MySQL"
+#    rds_db_version = "5.7"
+#    rds_sg_rule_ports = "3306"
+#    rds_flavor_vcpus = 2
+#    rds_flavor_memory = 4
+#
+#  }
+#}
 
 
 
