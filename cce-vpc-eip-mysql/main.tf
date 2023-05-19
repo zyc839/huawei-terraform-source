@@ -123,34 +123,34 @@ module "elb" {
 }
 
 # rds
-module "rds" {
-  count = var.rds_options.rds_switch?1:0
-  source       = "git::github.com/zyc839/huawei-terraform-source.git//rds"
-  project_name = format("%s-%s-%s", var.project_name, var.rds_options.rds_db_type, lower(random_string.random.result))
-  vpc_id       = module.vpc.vpc_id
-  subnet_id    = module.vpc.subnet_id
-  db_type      = var.rds_options.rds_db_type
-  db_version   = var.rds_options.rds_db_version
-  rds_instance_name = var.rds_options.rds_instance_name
-  rds_sg_rule_ports = var.rds_options.rds_sg_rule_ports
-  rds_flavor_vcpus  = var.rds_options.rds_flavor_vcpus
-  rds_flavor_memory = var.rds_options.rds_flavor_memory
-#  eip_address = module.eip[2].address
-}
-
 #module "rds" {
-#  count = var.rds_switch?1:0
+#  count = var.rds_options.rds_switch?1:0
 #  source       = "git::github.com/zyc839/huawei-terraform-source.git//rds"
-#  project_name = format("%s-%s-%s", var.project_name, var.rds_db_type, lower(random_string.random.result))
+#  project_name = format("%s-%s-%s", var.project_name, var.rds_options.rds_db_type, lower(random_string.random.result))
 #  vpc_id       = module.vpc.vpc_id
 #  subnet_id    = module.vpc.subnet_id
-#  db_type      = var.rds_db_type
-#  db_version   = var.rds_db_version
-#  rds_instance_name = var.rds_instance_name
-#  rds_sg_rule_ports = var.rds_sg_rule_ports
-#  rds_flavor_vcpus  = var.rds_flavor_vcpus
-#  rds_flavor_memory = var.rds_flavor_memory
-#  #  eip_address = module.eip[2].address
+#  db_type      = var.rds_options.rds_db_type
+#  db_version   = var.rds_options.rds_db_version
+#  rds_instance_name = var.rds_options.rds_instance_name
+#  rds_sg_rule_ports = var.rds_options.rds_sg_rule_ports
+#  rds_flavor_vcpus  = var.rds_options.rds_flavor_vcpus
+#  rds_flavor_memory = var.rds_options.rds_flavor_memory
+##  eip_address = module.eip[2].address
 #}
+
+module "rds" {
+  count = var.rds_switch?1:0
+  source       = "git::github.com/zyc839/huawei-terraform-source.git//rds"
+  project_name = format("%s-%s-%s", var.project_name, var.rds_db_type, lower(random_string.random.result))
+  vpc_id       = module.vpc.vpc_id
+  subnet_id    = module.vpc.subnet_id
+  db_type      = var.rds_db_type
+  db_version   = var.rds_db_version
+  rds_instance_name = var.rds_instance_name
+  rds_sg_rule_ports = var.rds_sg_rule_ports
+  rds_flavor_vcpus  = var.rds_flavor_vcpus
+  rds_flavor_memory = var.rds_flavor_memory
+  #  eip_address = module.eip[2].address
+}
 
 
