@@ -16,7 +16,7 @@ output "elb_info" {
 
 
 output "rds_private_ips" {
-  value = var.rds_switch?module.rds[0].private_ips:[]
+  value = var.rds_options.rds_switch?module.rds[0].private_ips:[]
   description = "instance private_ips"
 }
 
