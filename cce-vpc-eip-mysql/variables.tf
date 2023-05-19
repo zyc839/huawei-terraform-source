@@ -458,7 +458,7 @@ variable "rds_switch" {
 }
 
 variable "rds_options" {
-  type = any
+  type = "map"
 }
 
 #variable "rds_options" {
