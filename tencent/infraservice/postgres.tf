@@ -17,6 +17,6 @@ resource "tencentcloud_postgresql_instance" "postgres" {
     min_backup_start_time        = var.rds_options.min_backup_start_time
     max_backup_start_time        = var.rds_options.max_backup_start_time
     base_backup_retention_period = var.rds_options.base_backup_retention_period
-    backup_period                = var.rds_options.backup_period
+    backup_period                = [var.rds_options.backup_period]
   }
 }

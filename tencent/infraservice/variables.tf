@@ -123,7 +123,7 @@ variable "rds_options" {
     min_backup_start_time = string
     max_backup_start_time = string
     base_backup_retention_period = string
-    backup_period = list(string)
+    backup_period = string
   })
   default = {
     rds_switch = false
@@ -137,6 +137,6 @@ variable "rds_options" {
     min_backup_start_time = "00:00:01"
     max_backup_start_time = "01:00:01"
     base_backup_retention_period = "7"
-    backup_period = ["sunday"]
+    backup_period = "sunday"
   }
 }
