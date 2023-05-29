@@ -1,0 +1,26 @@
+apiVersion: cloud.tencent.com/v1alpha1
+kind: NginxIngress
+metadata:
+  name: nginx
+spec:
+  ingressClass: nginx
+  service:
+    annotation:
+      service.cloud.tencent.com/pass-to-target: "true"
+      service.kubernetes.io/service.extensiveParameters: '{"InternetAccessible":{"InternetChargeType":"TRAFFIC_POSTPAID_BY_HOUR","InternetMaxBandwidthOut":10}}'
+    type: LoadBalancer
+  workLoad:
+    template:
+      affinity: {}
+      container:
+        image: ccr.ccs.tencentyun.com/paas/nginx-ingress-controller:v1.1.3
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: 1024Mi
+          requests:
+            cpu: "0.25"
+            memory: 256Mi
+      nodeSelector:
+        cloud.tencent.com/auto-scaling-group-id: "asg-l5amsk49"
+    type: daemonSet
